@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.CampoMinado" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
 
-    <style name="Theme.CampoMinado" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        
+        <item name="postSplashScreenTheme">@style/Theme.CampoMinado</item>
+        
+        <item name="windowSplashScreenAnimationDuration">800</item>
+    </style>
 </resources>
