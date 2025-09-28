@@ -3,7 +3,7 @@ project_name="sei-spa"
 
 function exec() {
     docker run -it --rm \
-        -v ~/AndroidStudioProjects/CampoMinado/:/app \
+        -v ./:/app \
         -v ~/Android/Sdk/:/Android/Sdk/ \
         -e ANDROID_HOME=/Android/Sdk \
         -w /app \
