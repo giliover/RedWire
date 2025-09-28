@@ -6,9 +6,8 @@ O principal objetivo é criar uma aplicação com programação orientada à obj
 
 Para compilar e executar este projeto, você precisará dos seguintes softwares instalados e configurados corretamente:
 
-* **Java Development Kit (JDK) 24 ou superior**:
+* **Java Development Kit (JDK) 24**:
     * Verifique sua versão do JDK com `java -version` no terminal.
-    * Se não tiver, você pode baixar o OpenJDK ou outra distribuição.
 * **Android SDK (Standalone)**:
     * Embora o Android Studio seja a forma mais fácil de obter o SDK, você pode baixá-lo separadamente. Isso inclui ferramentas como `build-tools`, `platform-tools` (com `adb`), e plataformas Android.
     * Você pode instalar via linha de comando usando `sdkmanager` (parte das Command Line Tools do Android SDK).
