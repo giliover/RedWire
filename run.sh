@@ -7,7 +7,7 @@ function exec() {
         -v ~/Android/Sdk/:/Android/Sdk/ \
         -e ANDROID_HOME=/Android/Sdk \
         -w /app \
-          android-openjdk:24 bash 
+          openjdk:24 bash 
 
 }
 
