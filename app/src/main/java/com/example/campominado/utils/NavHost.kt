@@ -22,7 +22,7 @@ internal class NavHost {
             }
 
             composable("game/{mode}") { backStackEntry ->
-                val mode = backStackEntry.arguments?.getString("mode") ?: "facil"
+                val mode = backStackEntry.arguments?.getString("mode") ?: "easy"
                 var gameScreen: GameScreen = GameScreen()
                 gameScreen.Create(navController, mode)
             }
