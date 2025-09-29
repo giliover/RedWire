@@ -1,47 +1,42 @@
 package com.example.campominado.ui.screens
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.unit.sp
 
-@Composable
-fun MainMenuScreen(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("Campo Minado")
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 
-        Spacer(modifier = Modifier.height(24.dp))
+import com.example.campominado.ui.screens.ComponentesUI
 
-        Button(onClick = { navController.navigate("game/facil") }) {
-            Text("Modo Fácil")
-        }
 
-        Spacer(modifier = Modifier.height(12.dp))
+internal class MainMenuScreen {
+    @Composable
+    public fun Create(navController: NavController) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(22.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val ui = ComponentesUI()
+            ui.CreateTitle("Campo Minado")
 
-        Button(onClick = { navController.navigate("game/medio") }) {
-            Text("Modo Médio")
-        }
+            Spacer(modifier = Modifier.height(24.dp))
 
-        Spacer(modifier = Modifier.height(12.dp))
+            ui.CreateButton(onClick = { navController.navigate("game/easy") }, text = "Modo Fácil")
 
-        Button(onClick = { navController.navigate("game/dificil") }) {
-            Text("Modo Difícil")
-        }
+            Spacer(modifier = Modifier.height(12.dp))
 
-        Spacer(modifier = Modifier.height(12.dp))
+            ui.CreateButton(onClick = { navController.navigate("game/medium") }, text = "Modo Médio")
 
-        Button(onClick = { navController.navigate("game/personalizado") }) {
-            Text("Modo Personalizado")
+            Spacer(modifier = Modifier.height(12.dp))
+
+            ui.CreateButton(onClick = { navController.navigate("game/hard") }, text = "Modo Difícil")
         }
     }
 }
