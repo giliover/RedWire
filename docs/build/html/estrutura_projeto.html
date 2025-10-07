@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Estrutura de Arquivos do Projeto &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Componente: MainMenuScreen.kt" href="main_menu_screen_analise.html" />
+    <link rel="prev" title="RedWire ( Android MineSweeper ) documentation" href="index.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Estrutura de Arquivos do Projeto</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">RedWire ( Android MineSweeper ) documentation</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="main_menu_screen_analise.html">Análise do Componente: MainMenuScreen.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="estrutura-de-arquivos-do-projeto">
+<h1>Estrutura de Arquivos do Projeto<a class="headerlink" href="#estrutura-de-arquivos-do-projeto" title="Link to this heading">¶</a></h1>
+<p>O projeto <em>REDWIRE</em> (Campo Minado) segue a estrutura padrão de projetos Android, com foco na organização do código-fonte em pacotes que refletem a <strong>Programação Orientada a Objetos (OO)</strong> e o padrão de design da interface do usuário.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├── app/
+│   └── src/
+│       └── main/
+│           ├── java/
+│           │   └── com/example/campominado/
+│           │       ├── ui/
+│           │       │   ├── screens/
+│           │       │   │   ├── ComponentesUI.kt
+│           │       │   │   ├── GameScreen.kt
+│           │       │   │   └── MainMenuScreen.kt
+│           │       │   ├── theme/
+│           │       │   ├── utils/
+│           │       │   └── MainActivity.kt
+│           ├── res/
+│           └── AndroidManifest.xml
+└── ... (arquivos de configuração como .gradle, build.gradle.kts, etc.)
+</pre></div>
+</div>
+<section id="conteudo-principal-app-src-main-java-com-example-campominado">
+<h2>Conteúdo Principal (<code class="docutils literal notranslate"><span class="pre">app/src/main/java/com/example/campominado/</span></code>)<a class="headerlink" href="#conteudo-principal-app-src-main-java-com-example-campominado" title="Link to this heading">¶</a></h2>
+<p>Este pacote contém o código-fonte principal em <strong>Kotlin</strong>, organizado em subdiretórios lógicos:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">MainActivity.kt</span></code>:</dt><dd><p>O ponto de entrada principal da aplicação Android. Geralmente, inicializa a interface do usuário e pode orquestrar a navegação.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">ui/</span></code>:</dt><dd><p>Contém a lógica e a definição de componentes relacionados à <strong>Interface do Usuário (UI)</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">theme/</span></code>:</dt><dd><p>Inclui arquivos de tema e estilo, como <code class="file docutils literal notranslate"><span class="pre">Color.kt</span></code> e <code class="file docutils literal notranslate"><span class="pre">Type.kt</span></code>, para padronização visual da aplicação.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">utils/</span></code>:</dt><dd><p>Armazena classes e funções auxiliares que não se encaixam nas categorias de UI ou <em>Domain</em> (Lógica de Negócio, que presumivelmente estaria em um pacote separado se a arquitetura fosse mais complexa, ou estaria implementada dentro de outras classes).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="pacote-ui-screens">
+<h2>Pacote <code class="docutils literal notranslate"><span class="pre">ui/screens/</span></code><a class="headerlink" href="#pacote-ui-screens" title="Link to this heading">¶</a></h2>
+<p>A organização em <em>screens</em> sugere uma abordagem moderna de UI (possivelmente utilizando <strong>Jetpack Compose</strong>), onde a interface é dividida em componentes de tela distintos:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">MainMenuScreen.kt</span></code>:</dt><dd><p>Define a tela principal do menu do jogo (iniciar novo jogo, opções, etc.).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">GameScreen.kt</span></code>:</dt><dd><p>Define a tela onde o jogo Campo Minado é jogado. Espera-se que esta tela interaja com a <strong>lógica de jogo orientada a objetos</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">ComponentesUI.kt</span></code>:</dt><dd><p>Pode conter componentes de UI reutilizáveis, como botões, células do campo minado, ou diálogos.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="pacote-res-recursos">
+<h2>Pacote <code class="docutils literal notranslate"><span class="pre">res/</span></code> (Recursos)<a class="headerlink" href="#pacote-res-recursos" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">drawable/</span></code>:</dt><dd><p>Recursos visuais (ícones, imagens).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">values/</span></code>:</dt><dd><p>Definições de cores, <em>strings</em> de texto, e estilos.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">xml/</span></code>:</dt><dd><p>Arquivos de configuração ou recursos em formato XML.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">RedWire ( Android MineSweeper ) documentation</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="main_menu_screen_analise.html">Análise do Componente: MainMenuScreen.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

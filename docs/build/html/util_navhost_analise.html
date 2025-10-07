@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análise do Componente: NavHost.kt &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Componente: Color.kt (Tema)" href="theme_color_analise.html" />
+    <link rel="prev" title="Análise do Componente: Theme.kt (Implementação do Tema)" href="theme_analise.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Análise do Componente: NavHost.kt</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        «&#160;&#160;<a href="theme_analise.html">Análise do Componente: Theme.kt (Implementação do Tema)</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="analise-do-componente-navhost-kt">
+<h1>Análise do Componente: NavHost.kt<a class="headerlink" href="#analise-do-componente-navhost-kt" title="Link to this heading">¶</a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">NavHost.kt</span></code>, localizado no pacote <code class="docutils literal notranslate"><span class="pre">com.example.campominado.util</span></code>, define o grafo de navegação completo da aplicação, utilizando a biblioteca <strong>Jetpack Navigation com Compose</strong>. Esta classe encapsula toda a lógica de roteamento, separando-a da <em>Activity</em> principal e das telas.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">internal</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">NavHost</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Composable</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">Create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Classe</strong>: <code class="docutils literal notranslate"><span class="pre">NavHost</span></code></p></li>
+<li><p><strong>Visibilidade</strong>: É uma classe <cite>internal</cite>, visível apenas dentro do módulo de compilação.</p></li>
+<li><p><strong>Função Principal</strong>: A função <strong>``Create()``</strong> é a única Composable e é responsável por construir e gerenciar o estado do controlador de navegação.</p></li>
+</ul>
+<section id="grafo-de-navegacao-navigation-graph">
+<h2>Grafo de Navegação (Navigation Graph)<a class="headerlink" href="#grafo-de-navegacao-navigation-graph" title="Link to this heading">¶</a></h2>
+<p>O método <code class="docutils literal notranslate"><span class="pre">Create()</span></code> inicializa o <code class="docutils literal notranslate"><span class="pre">NavHostController</span></code> e define as rotas:</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">Create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavHostController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberNavController</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">NavHost</span><span class="p">(</span><span class="n">navController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">navController</span><span class="p">,</span><span class="w"> </span><span class="n">startDestination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mainmenu&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ... Definição das rotas</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>``rememberNavController()``</strong>: Cria e lembra o estado do controlador de navegação através das recomposições.</p></li>
+<li><p><strong>``startDestination = &quot;mainmenu&quot;``</strong>: Define a rota inicial que será carregada quando o <code class="docutils literal notranslate"><span class="pre">NavHost</span></code> for montado, garantindo que o aplicativo comece na tela do menu principal.</p></li>
+</ul>
+</section>
+<section id="rotas-implementadas">
+<h2>Rotas Implementadas<a class="headerlink" href="#rotas-implementadas" title="Link to this heading">¶</a></h2>
+<p>O grafo de navegação é composto por dois destinos principais definidos pela diretiva <code class="docutils literal notranslate"><span class="pre">composable</span></code>:</p>
+<ol class="arabic simple">
+<li><p><strong>Rota ``mainmenu``</strong>:
+* <strong>Caminho</strong>: <cite>&quot;mainmenu&quot;</cite>
+* <strong>Ação</strong>: Instancia e chama a função <code class="docutils literal notranslate"><span class="pre">Create</span></code> da classe <strong>``MainMenuScreen``</strong>, passando o <code class="docutils literal notranslate"><span class="pre">navController</span></code> para que o menu possa navegar para outras telas.</p></li>
+<li><p><strong>Rota de Jogo com Argumentos</strong>:
+* <strong>Caminho</strong>: <cite>&quot;game/{mode}&quot;</cite>
+* <strong>Argumento Necessário</strong>: A rota espera um argumento chamado <strong>``mode``</strong> na URL (ex: <cite>game/easy</cite>).
+* <strong>Extração de Dados</strong>: O valor do modo é extraído da <cite>backStackEntry</cite> usando <code class="docutils literal notranslate"><span class="pre">backStackEntry.arguments?.getString(&quot;mode&quot;)</span></code>.
+* <strong>Valor Padrão</strong>: Caso o argumento <code class="docutils literal notranslate"><span class="pre">mode</span></code> esteja ausente, o valor padrão é definido como <cite>&quot;easy&quot;</cite>.
+* <strong>Ação</strong>: Instancia e chama a função <code class="docutils literal notranslate"><span class="pre">Create</span></code> da classe <strong>``GameScreen``</strong>, passando o <code class="docutils literal notranslate"><span class="pre">navController</span></code> e o argumento <code class="docutils literal notranslate"><span class="pre">mode</span></code> extraído.</p></li>
+</ol>
+<p><strong>Princípio da Orientação a Objetos (OO)</strong>: A classe <code class="docutils literal notranslate"><span class="pre">NavHost</span></code> serve como um <strong>Controlador</strong> (Controller) que gerencia o fluxo de trabalho (Work Flow), instanciando e orquestrando as classes de UI (<strong>``MainMenuScreen``</strong> e <strong>``GameScreen``</strong>) e garantindo que cada tela receba o contexto de navegação necessário.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        «&#160;&#160;<a href="theme_analise.html">Análise do Componente: Theme.kt (Implementação do Tema)</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

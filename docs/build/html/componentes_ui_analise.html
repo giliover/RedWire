@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análise do Componente: ComponentesUI.kt &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Análise do Componente: ComponentesUI.kt</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="analise-do-componente-componentesui-kt">
+<h1>Análise do Componente: ComponentesUI.kt<a class="headerlink" href="#analise-do-componente-componentesui-kt" title="Link to this heading">¶</a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">ComponentesUI.kt</span></code> é uma implementação direta do paradigma de reuso e composição em <strong>Jetpack Compose</strong>. A classe <strong>``ComponentesUI``</strong> centraliza a criação de elementos de interface comuns, garantindo a consistência visual e a padronização do comportamento em todo o aplicativo.</p>
+<section id="classes-e-localizacao">
+<h2>Classes e Localização<a class="headerlink" href="#classes-e-localizacao" title="Link to this heading">¶</a></h2>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">internal</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">ComponentesUI</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ... funções composable</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Classe</strong>: <code class="docutils literal notranslate"><span class="pre">ComponentesUI</span></code></p></li>
+<li><p><strong>Pacote</strong>: <cite>com.example.campominado.ui.screens</cite></p></li>
+<li><p><strong>Visibilidade</strong>: A classe é marcada como <cite>internal</cite>, sugerindo que seu uso está restrito ao módulo do aplicativo.</p></li>
+<li><p><strong>Propósito</strong>: Oferecer um conjunto de funções <strong>`&#64;Composable`</strong> que podem ser chamadas pelas telas (como <code class="file docutils literal notranslate"><span class="pre">MainMenuScreen.kt</span></code> ou <code class="file docutils literal notranslate"><span class="pre">GameScreen.kt</span></code>) para renderizar elementos padronizados.</p></li>
+</ul>
+</section>
+<section id="funcao-createtitle">
+<h2>Função CreateTitle<a class="headerlink" href="#funcao-createtitle" title="Link to this heading">¶</a></h2>
+<p>Esta função é responsável por criar um componente de texto formatado como título.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">CreateTitle</span><span class="p">(</span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span><span class="p">,</span>
+<span class="w">        </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">headlineLarge</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span>
+<span class="w">            </span><span class="n">fontWeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FontWeight</span><span class="p">.</span><span class="na">Bold</span><span class="p">,</span>
+<span class="w">            </span><span class="n">fontSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">32.</span><span class="n">sp</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">primary</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Reuso de Estilo</strong>: Utiliza o tema do Material Design (<cite>MaterialTheme.typography.headlineLarge</cite>) e o personaliza (cópia) com <strong>negrito</strong> e tamanho de fonte fixo (<cite>32.sp</cite>).</p></li>
+<li><p><strong>Consistência</strong>: Garante que todos os títulos no aplicativo tenham o mesmo estilo, e a cor seja a primária do tema.</p></li>
+</ul>
+</section>
+<section id="funcao-createbutton-orientacao-a-objetos-e-prevencao-de-multiplos-cliques">
+<h2>Função CreateButton (Orientação a Objetos e Prevenção de Múltiplos Cliques)<a class="headerlink" href="#funcao-createbutton-orientacao-a-objetos-e-prevencao-de-multiplos-cliques" title="Link to this heading">¶</a></h2>
+<p>O componente de botão demonstra um conceito importante de <strong>Orientação a Objetos (OO)</strong> ao delegar a lógica de prevenção de múltiplos cliques a uma classe utilitária externa:</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">CreateButton</span><span class="p">(</span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">safeClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SafeClick</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">Button</span><span class="p">(</span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">safeClick</span><span class="p">.</span><span class="na">Create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">onClick</span><span class="p">()</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Encapsulamento de Comportamento</strong>: Em vez de implementar a lógica de <em>debounce</em> (prevenção de cliques rápidos) diretamente na função Composable, ela instancia a classe <strong>``SafeClick``</strong> (importada de <code class="file docutils literal notranslate"><span class="pre">com.example.campominado.util.SafeClick</span></code>).</p></li>
+<li><p><strong>Delegação</strong>: A chamada <cite>safeClick.Create() { onClick() }</cite> utiliza o objeto <cite>SafeClick</cite> para interceptar a ação de clique.</p></li>
+<li><p><strong>Vantagem da OO</strong>: Essa abordagem garante que a lógica de &quot;clique seguro&quot; seja <strong>reutilizável</strong> em qualquer botão do app e <strong>testável</strong> isoladamente, sem poluir o código do componente visual.</p></li>
+</ul>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análise do Componente: MainMenuScreen.kt &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Componente: GameScreen.kt" href="game_screen_analise.html" />
+    <link rel="prev" title="Estrutura de Arquivos do Projeto" href="estrutura_projeto.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Análise do Componente: MainMenuScreen.kt</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        «&#160;&#160;<a href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="analise-do-componente-mainmenuscreen-kt">
+<h1>Análise do Componente: MainMenuScreen.kt<a class="headerlink" href="#analise-do-componente-mainmenuscreen-kt" title="Link to this heading">¶</a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">MainMenuScreen.kt</span></code> define a tela inicial da aplicação. Sua responsabilidade é clara: receber o usuário, exibir o título do jogo e permitir a seleção do modo de dificuldade, que desencadeia a navegação para a partida.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">internal</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MainMenuScreen</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Classe</strong>: <code class="docutils literal notranslate"><span class="pre">MainMenuScreen</span></code></p></li>
+<li><p><strong>Pacote</strong>: <code class="docutils literal notranslate"><span class="pre">com.example.campominado.ui.screens</span></code></p></li>
+<li><p><strong>Função</strong>: Apresentar as opções de dificuldade e orquestrar o início do jogo.</p></li>
+</ul>
+<section id="funcao-create-entrada-da-tela">
+<h2>Função Create (Entrada da Tela)<a class="headerlink" href="#funcao-create-entrada-da-tela" title="Link to this heading">¶</a></h2>
+<p>A função <strong>``Create``</strong> é o ponto de montagem do Composable, recebendo o controlador de navegação necessário para as transições de tela.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">Create</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ui</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ComponentesUI</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">            </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">22.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">verticalArrangement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrangement</span><span class="p">.</span><span class="na">Center</span><span class="p">,</span>
+<span class="w">        </span><span class="n">horizontalAlignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ui</span><span class="p">.</span><span class="na">CreateTitle</span><span class="p">(</span><span class="s">&quot;Campo Minado&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">// ... botões de navegação</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Composição e Reuso</strong>: A tela demonstra o reuso da classe <strong>``ComponentesUI``</strong> para garantir a consistência no título e nos botões.</p></li>
+<li><p><strong>Layout</strong>: O layout utiliza um <code class="docutils literal notranslate"><span class="pre">Column</span></code> para centralizar verticalmente o conteúdo e aplica um espaçamento (<cite>padding</cite>) de <cite>22.dp</cite> em torno da tela.</p></li>
+</ul>
+</section>
+<section id="gerenciamento-de-navegacao-selecao-de-dificuldade">
+<h2>Gerenciamento de Navegação (Seleção de Dificuldade)<a class="headerlink" href="#gerenciamento-de-navegacao-selecao-de-dificuldade" title="Link to this heading">¶</a></h2>
+<p>A lógica de navegação utiliza o objeto <strong>``NavController``</strong> para transicionar para a tela de jogo, sendo um excelente exemplo de <strong>passagem de dados através da rota</strong>.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Botões de Dificuldade</strong>:</dt><dd><ul>
+<li><p>A função <code class="docutils literal notranslate"><span class="pre">ui.CreateButton</span></code> é usada para criar três botões, um para cada nível de dificuldade: Fácil, Médio e Difícil.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>Rotas com Parâmetros</strong>: O bloco de clique de cada botão utiliza a função <code class="docutils literal notranslate"><span class="pre">navController.navigate()</span></code>, passando a dificuldade como parte do caminho da URL:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Início</span> <span class="n">da</span> <span class="n">partida</span> <span class="n">no</span> <span class="n">Modo</span> <span class="n">Fácil</span>
+<span class="n">navController</span><span class="o">.</span><span class="n">navigate</span><span class="p">(</span><span class="s2">&quot;game/easy&quot;</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="n">Início</span> <span class="n">da</span> <span class="n">partida</span> <span class="n">no</span> <span class="n">Modo</span> <span class="n">Médio</span>
+<span class="n">navController</span><span class="o">.</span><span class="n">navigate</span><span class="p">(</span><span class="s2">&quot;game/medium&quot;</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="n">Início</span> <span class="n">da</span> <span class="n">partida</span> <span class="n">no</span> <span class="n">Modo</span> <span class="n">Difícil</span>
+<span class="n">navController</span><span class="o">.</span><span class="n">navigate</span><span class="p">(</span><span class="s2">&quot;game/hard&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Essa implementação assume que o <strong>``NavHost``</strong> está configurado para reconhecer a rota <code class="docutils literal notranslate"><span class="pre">&quot;game/{mode}&quot;</span></code> e injetar o valor de <cite>{mode}</cite> (easy, medium, hard) como argumento para a tela de destino (<code class="file docutils literal notranslate"><span class="pre">GameScreen.kt</span></code>), que o recebe no seu parâmetro <cite>mode</cite>.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        «&#160;&#160;<a href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>
