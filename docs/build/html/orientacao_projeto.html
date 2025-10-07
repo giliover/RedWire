@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Orientação a Objetos (OO) em Kotlin &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="orientacao-a-objetos-oo-em-kotlin">
+<h1>Orientação a Objetos (OO) em Kotlin<a class="headerlink" href="#orientacao-a-objetos-oo-em-kotlin" title="Link to this heading">¶</a></h1>
+<p>A estrutura de arquivos sugere a aplicação de conceitos de <strong>Orientação a Objetos (OO)</strong> para organizar a lógica do jogo e a interface.</p>
+<section id="classes-de-interface-ui">
+<h2>Classes de Interface (UI)<a class="headerlink" href="#classes-de-interface-ui" title="Link to this heading">¶</a></h2>
+<p>As classes no pacote <code class="file docutils literal notranslate"><span class="pre">ui/screens/</span></code> representam objetos de tela ou componentes visuais:</p>
+<ul class="simple">
+<li><p><strong>Abstração e Encapsulamento</strong>: As telas (e.g., <code class="file docutils literal notranslate"><span class="pre">GameScreen.kt</span></code>) encapsulam o estado e a lógica de apresentação de uma parte específica da interface.</p></li>
+<li><p><strong>Composição</strong>: Componentes de UI podem ser compostos para formar telas mais complexas, como <code class="file docutils literal notranslate"><span class="pre">GameScreen</span></code> que utiliza elementos definidos em <code class="file docutils literal notranslate"><span class="pre">ComponentesUI.kt</span></code>.</p></li>
+</ul>
+</section>
+<section id="classes-de-dominio-logica-de-jogo">
+<h2>Classes de Domínio/Lógica de Jogo<a class="headerlink" href="#classes-de-dominio-logica-de-jogo" title="Link to this heading">¶</a></h2>
+<p>Embora não explicitamente visíveis como um pacote <em>domain</em> ou <em>model</em> na imagem, o paradigma OO exige classes para representar os elementos centrais do jogo:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Classe ``Cell`` (Célula)</strong>:</dt><dd><ul>
+<li><p><strong>Propriedades</strong>: Estado (aberta/fechada, marcada com bandeira), Conteúdo (mina/número de minas vizinhas).</p></li>
+<li><p><strong>Comportamento (Métodos)</strong>: <code class="docutils literal notranslate"><span class="pre">abrir()</span></code>, <code class="docutils literal notranslate"><span class="pre">alternarBandeira()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Classe ``Board`` (Tabuleiro)</strong>:</dt><dd><ul>
+<li><p><strong>Propriedades</strong>: Matriz de objetos <code class="docutils literal notranslate"><span class="pre">Cell</span></code>, Dimensões (linhas, colunas, número de minas).</p></li>
+<li><p><strong>Comportamento (Métodos)</strong>: <code class="docutils literal notranslate"><span class="pre">inicializarTabuleiro()</span></code>, <code class="docutils literal notranslate"><span class="pre">revelarCelula(x,</span> <span class="pre">y)</span></code>, <code class="docutils literal notranslate"><span class="pre">checarVitoria()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Classe ``GameManager`` (Gerenciador de Jogo)</strong>:</dt><dd><ul>
+<li><p><strong>Propriedades</strong>: Objeto <code class="docutils literal notranslate"><span class="pre">Board</span></code>, Estado do jogo (em andamento, vitória, derrota), Temporizador.</p></li>
+<li><p><strong>Comportamento (Métodos)</strong>: <code class="docutils literal notranslate"><span class="pre">iniciarNovoJogo()</span></code>, <code class="docutils literal notranslate"><span class="pre">processarClique(x,</span> <span class="pre">y)</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="beneficios-da-oo-no-projeto">
+<h2>Benefícios da OO no Projeto<a class="headerlink" href="#beneficios-da-oo-no-projeto" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Reutilização</strong>: Componentes de UI (<code class="file docutils literal notranslate"><span class="pre">ComponentesUI.kt</span></code>) e classes de lógica (e.g., <code class="docutils literal notranslate"><span class="pre">Cell</span></code>) podem ser reutilizados facilmente.</p></li>
+<li><p><strong>Manutenção</strong>: A separação de responsabilidades (UI versus lógica de jogo) torna o código mais fácil de entender e manter (<strong>Princípio da Responsabilidade Única</strong>).</p></li>
+<li><p><strong>Testabilidade</strong>: As classes de lógica de domínio (<code class="docutils literal notranslate"><span class="pre">Board</span></code>, <code class="docutils literal notranslate"><span class="pre">Cell</span></code>) podem ser testadas isoladamente da interface Android.</p></li>
+</ul>
+</section>
+<section id="detalhes-de-implementacao-em-kotlin">
+<h2>Detalhes de Implementação em Kotlin<a class="headerlink" href="#detalhes-de-implementacao-em-kotlin" title="Link to this heading">¶</a></h2>
+<p>O código-fonte utiliza a linguagem <strong>Kotlin</strong>, que facilita a implementação da OO com recursos como:</p>
+<ul class="simple">
+<li><p><strong>Data Classes</strong>: Ideais para representar objetos simples de dados (e.g., a classe <code class="docutils literal notranslate"><span class="pre">Cell</span></code>).</p></li>
+<li><p><strong>Propriedades Imutáveis (``val``)</strong>: Usadas para garantir a imutabilidade de dados críticos do jogo, melhorando a segurança e o fluxo de dados.</p></li>
+<li><p><strong>Extensões e Funções de Escopo</strong>: Utilizadas para criar um código mais conciso e expressivo.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">RedWire</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Tópicos da Documentação:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Caio Silva E Carlos Vergílio.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/orientacao_projeto.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

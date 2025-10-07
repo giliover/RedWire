@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análise do Componente: Type.kt (Tipografia) &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Análise do Componente: ComponentesUI.kt" href="componentes_ui_analise.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Análise do Componente: Type.kt (Tipografia)</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        «&#160;&#160;<a href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="analise-do-componente-type-kt-tipografia">
+<h1>Análise do Componente: Type.kt (Tipografia)<a class="headerlink" href="#analise-do-componente-type-kt-tipografia" title="Link to this heading">¶</a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">Type.kt</span></code>, localizado no pacote <code class="docutils literal notranslate"><span class="pre">ui.theme</span></code>, é responsável por definir os estilos tipográficos (fontes, tamanhos, pesos) da aplicação, aderindo às diretrizes do <strong>Material Design 3 (M3)</strong> no Jetpack Compose.</p>
+<section id="objeto-typography">
+<h2>Objeto Typography<a class="headerlink" href="#objeto-typography" title="Link to this heading">¶</a></h2>
+<p>O objeto principal é um <strong>``val``</strong> nomeado <strong>``Typography``</strong> do tipo <code class="docutils literal notranslate"><span class="pre">androidx.compose.material3.Typography</span></code>, que é então injetado no <code class="docutils literal notranslate"><span class="pre">MaterialTheme</span></code> (definido em <code class="file docutils literal notranslate"><span class="pre">Theme.kt</span></code>).</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="k">package</span><span class="w"> </span><span class="nn">com.example.campominado.ui.theme</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material3.Typography</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.text.TextStyle</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.text.font.FontFamily</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.text.font.FontWeight</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.unit.sp</span>
+
+<span class="c1">// Set of Material typography styles to start with</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">Typography</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Typography</span><span class="p">(</span>
+<span class="w">    </span><span class="n">bodyLarge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TextStyle</span><span class="p">(</span>
+<span class="w">        </span><span class="n">fontFamily</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FontFamily</span><span class="p">.</span><span class="na">Default</span><span class="p">,</span>
+<span class="w">        </span><span class="n">fontWeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FontWeight</span><span class="p">.</span><span class="na">Normal</span><span class="p">,</span>
+<span class="w">        </span><span class="n">fontSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">sp</span><span class="p">,</span>
+<span class="w">        </span><span class="n">lineHeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">24.</span><span class="n">sp</span><span class="p">,</span>
+<span class="w">        </span><span class="n">letterSpacing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">.</span><span class="na">sp</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// ... Outros estilos comentados</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="estilo-bodylarge">
+<h2>Estilo bodyLarge<a class="headerlink" href="#estilo-bodylarge" title="Link to this heading">¶</a></h2>
+<p>A única propriedade de estilo sobrescrita explicitamente é <code class="docutils literal notranslate"><span class="pre">bodyLarge</span></code>, que define o estilo padrão para a maioria dos textos de corpo na aplicação.</p>
+<ul class="simple">
+<li><p><strong>``fontFamily``</strong>: <code class="docutils literal notranslate"><span class="pre">FontFamily.Default</span></code>.</p></li>
+<li><p><strong>``fontWeight``</strong>: <code class="docutils literal notranslate"><span class="pre">FontWeight.Normal</span></code> (Regular).</p></li>
+<li><p><strong>``fontSize``</strong>: <code class="docutils literal notranslate"><span class="pre">16.sp</span></code> (Tamanho padrão e recomendado para texto de corpo M3).</p></li>
+<li><p><strong>``lineHeight``</strong>: <code class="docutils literal notranslate"><span class="pre">24.sp</span></code>.</p></li>
+<li><p><strong>``letterSpacing``</strong>: <code class="docutils literal notranslate"><span class="pre">0.5.sp</span></code>.</p></li>
+</ul>
+</section>
+<section id="beneficio">
+<h2>Benefício<a class="headerlink" href="#beneficio" title="Link to this heading">¶</a></h2>
+<p>Ao centralizar a tipografia em um objeto <strong>``Typography``</strong>, a aplicação garante que todos os componentes que utilizam estilos do tema (ex: <cite>MaterialTheme.typography.bodyLarge</cite>) herdem a mesma configuração, mantendo a consistência do design visual. Os estilos não sobrescritos (como <cite>titleLarge</cite> ou <cite>labelSmall</cite>) mantêm seus valores padrão do Material Design.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        «&#160;&#160;<a href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

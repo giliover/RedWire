@@ -1,0 +1,44 @@
+====================================
+Orientação a Objetos (OO) em Kotlin
+====================================
+
+A estrutura de arquivos sugere a aplicação de conceitos de **Orientação a Objetos (OO)** para organizar a lógica do jogo e a interface.
+
+Classes de Interface (UI)
+-------------------------
+
+As classes no pacote :file:`ui/screens/` representam objetos de tela ou componentes visuais:
+
+* **Abstração e Encapsulamento**: As telas (e.g., :file:`GameScreen.kt`) encapsulam o estado e a lógica de apresentação de uma parte específica da interface.
+* **Composição**: Componentes de UI podem ser compostos para formar telas mais complexas, como :file:`GameScreen` que utiliza elementos definidos em :file:`ComponentesUI.kt`.
+
+Classes de Domínio/Lógica de Jogo
+---------------------------------
+
+Embora não explicitamente visíveis como um pacote *domain* ou *model* na imagem, o paradigma OO exige classes para representar os elementos centrais do jogo:
+
+* **Classe ``Cell`` (Célula)**:
+    * **Propriedades**: Estado (aberta/fechada, marcada com bandeira), Conteúdo (mina/número de minas vizinhas).
+    * **Comportamento (Métodos)**: ``abrir()``, ``alternarBandeira()``.
+* **Classe ``Board`` (Tabuleiro)**:
+    * **Propriedades**: Matriz de objetos ``Cell``, Dimensões (linhas, colunas, número de minas).
+    * **Comportamento (Métodos)**: ``inicializarTabuleiro()``, ``revelarCelula(x, y)``, ``checarVitoria()``.
+* **Classe ``GameManager`` (Gerenciador de Jogo)**:
+    * **Propriedades**: Objeto ``Board``, Estado do jogo (em andamento, vitória, derrota), Temporizador.
+    * **Comportamento (Métodos)**: ``iniciarNovoJogo()``, ``processarClique(x, y)``.
+
+Benefícios da OO no Projeto
+---------------------------
+
+* **Reutilização**: Componentes de UI (:file:`ComponentesUI.kt`) e classes de lógica (e.g., ``Cell``) podem ser reutilizados facilmente.
+* **Manutenção**: A separação de responsabilidades (UI versus lógica de jogo) torna o código mais fácil de entender e manter (**Princípio da Responsabilidade Única**).
+* **Testabilidade**: As classes de lógica de domínio (``Board``, ``Cell``) podem ser testadas isoladamente da interface Android.
+
+Detalhes de Implementação em Kotlin
+-----------------------------------
+
+O código-fonte utiliza a linguagem **Kotlin**, que facilita a implementação da OO com recursos como:
+
+* **Data Classes**: Ideais para representar objetos simples de dados (e.g., a classe ``Cell``).
+* **Propriedades Imutáveis (``val``)**: Usadas para garantir a imutabilidade de dados críticos do jogo, melhorando a segurança e o fluxo de dados.
+* **Extensões e Funções de Escopo**: Utilizadas para criar um código mais conciso e expressivo.

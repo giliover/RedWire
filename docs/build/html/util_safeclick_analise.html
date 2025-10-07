@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análise do Componente: SafeClick.kt &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Componente: ComponentesUI.kt" href="componentes_ui_analise.html" />
+    <link rel="prev" title="Análise do Componente: Color.kt (Tema)" href="theme_color_analise.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Análise do Componente: SafeClick.kt</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        «&#160;&#160;<a href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="analise-do-componente-safeclick-kt">
+<h1>Análise do Componente: SafeClick.kt<a class="headerlink" href="#analise-do-componente-safeclick-kt" title="Link to this heading">¶</a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">SafeClick.kt</span></code>, localizado no pacote <code class="docutils literal notranslate"><span class="pre">com.example.campominado.util</span></code>, implementa um padrão de design essencial para a UI: <strong>Debounce</strong> (limitação de frequência). Sua função é impedir que ações sejam executadas múltiplas vezes devido a toques rápidos ou acidentais do usuário.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">internal</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">SafeClick</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Classe</strong>: <code class="docutils literal notranslate"><span class="pre">SafeClick</span></code></p></li>
+<li><p><strong>Propósito</strong>: Envolver uma função de clique (<cite>action: () -&gt; Unit</cite>) em uma lógica de temporização, garantindo que ela não possa ser chamada novamente dentro de um período definido.</p></li>
+<li><p><strong>Uso</strong>: Esta classe é instanciada e utilizada no componente de botão <strong>``ComponentesUI.kt``</strong>.</p></li>
+</ul>
+<section id="metodo-create-logica-de-debounce">
+<h2>Método Create (Lógica de Debounce)<a class="headerlink" href="#metodo-create-logica-de-debounce" title="Link to this heading">¶</a></h2>
+<p>O método <code class="docutils literal notranslate"><span class="pre">Create</span></code> é o ponto central que retorna uma nova função de clique com o recurso de temporização embutido.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">Create</span><span class="p">(</span><span class="n">delayMillis</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1000L</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">):</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">canClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AtomicBoolean</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">canClick</span><span class="p">.</span><span class="na">get</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">canClick</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+<span class="w">            </span><span class="n">action</span><span class="p">()</span>
+
+<span class="w">            </span><span class="n">CoroutineScope</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">Main</span><span class="p">).</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">delay</span><span class="p">(</span><span class="n">delayMillis</span><span class="p">)</span>
+<span class="w">                </span><span class="n">canClick</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Controle de Estado Concorrente</strong>: Utiliza <strong>``AtomicBoolean(true)``</strong> para a variável <cite>canClick</cite>. Isso garante que a verificação de estado (<cite>canClick.get()</cite>) e a alteração de estado (<cite>canClick.set(false)</cite>) sejam <strong>thread-safe</strong> e atômicas, evitando <em>race conditions</em> mesmo em ambientes multi-threaded.</p></li>
+<li><p><strong>Execução da Ação</strong>: Se <cite>canClick</cite> for <cite>true</cite>, ele imediatamente executa a ação (<cite>action()</cite>) e define <cite>canClick</cite> como <cite>false</cite>.</p></li>
+<li><dl class="simple">
+<dt><strong>Temporizador Assíncrono</strong>: Um <strong>Coroutine</strong> é iniciado no <em>Main Dispatcher</em> para garantir que o <strong>``delay(delayMillis)``</strong> não bloqueie a thread principal da UI.</dt><dd><ul>
+<li><p>O tempo de atraso padrão é de <strong>1000ms (1 segundo)</strong>.</p></li>
+<li><p>Após o atraso, <cite>canClick</cite> é redefinido para <cite>true</cite>, permitindo um novo clique.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="principio-da-orientacao-a-objetos-oo">
+<h2>Princípio da Orientação a Objetos (OO)<a class="headerlink" href="#principio-da-orientacao-a-objetos-oo" title="Link to this heading">¶</a></h2>
+<p>A classe <code class="docutils literal notranslate"><span class="pre">SafeClick</span></code> demonstra o princípio da <strong>Encapsulação</strong>:</p>
+<ul class="simple">
+<li><p>A lógica complexa de controle de estado concorrente e temporização assíncrona é completamente <strong>isolada</strong> dentro da classe.</p></li>
+<li><p>As classes de UI (como <code class="docutils literal notranslate"><span class="pre">ComponentesUI</span></code>) não precisam se preocupar com os detalhes da implementação, elas apenas instanciam <code class="docutils literal notranslate"><span class="pre">SafeClick</span></code> e fornecem a ação a ser executada, resultando em código mais limpo e manutenção facilitada.</p></li>
+</ul>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        «&#160;&#160;<a href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

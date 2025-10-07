@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análise do Componente: Theme.kt (Implementação do Tema) &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Componente: NavHost.kt" href="util_navhost_analise.html" />
+    <link rel="prev" title="Análise do Componente: MainActivity.kt" href="main_activity_ui_analise.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Análise do Componente: Theme.kt (Implementação do Tema)</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        «&#160;&#160;<a href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="analise-do-componente-theme-kt-implementacao-do-tema">
+<h1>Análise do Componente: Theme.kt (Implementação do Tema)<a class="headerlink" href="#analise-do-componente-theme-kt-implementacao-do-tema" title="Link to this heading">¶</a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">Theme.kt</span></code>, localizado em <code class="docutils literal notranslate"><span class="pre">ui.theme</span></code>, é responsável por implementar o sistema de temas do Material Design 3 (M3) no Jetpack Compose. Ele define os esquemas de cores para os temas claro e escuro e o principal Composable que aplica o tema a todo o conteúdo da aplicação.</p>
+<section id="esquemas-de-cores-color-schemes">
+<h2>Esquemas de Cores (Color Schemes)<a class="headerlink" href="#esquemas-de-cores-color-schemes" title="Link to this heading">¶</a></h2>
+<p>Os esquemas de cores utilizam as constantes definidas em <code class="file docutils literal notranslate"><span class="pre">Color.kt</span></code> para criar objetos <code class="docutils literal notranslate"><span class="pre">ColorScheme</span></code>, que representam as cores funcionais da interface (primária, secundária, terciária, etc.).</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Tema Escuro (DarkColorScheme)</strong>:</dt><dd><ul>
+<li><p>Utiliza as cores mais claras (sufixo 80) para garantir um contraste adequado em fundos escuros.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">DarkColorScheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">darkColorScheme</span><span class="p">(</span>
+<span class="w">    </span><span class="n">primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Purple80</span><span class="p">,</span>
+<span class="w">    </span><span class="n">secondary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PurpleGrey80</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tertiary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pink80</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Tema Claro (LightColorScheme)</strong>:</dt><dd><ul>
+<li><p>Utiliza as cores mais escuras (sufixo 40).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">LightColorScheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lightColorScheme</span><span class="p">(</span>
+<span class="w">    </span><span class="n">primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Purple40</span><span class="p">,</span>
+<span class="w">    </span><span class="n">secondary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PurpleGrey40</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tertiary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pink40</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="composable-campominadotheme">
+<h2>Composable CampoMinadoTheme<a class="headerlink" href="#composable-campominadotheme" title="Link to this heading">¶</a></h2>
+<p>Esta é a função principal que envolve o conteúdo da aplicação, aplicando a lógica de seleção de tema.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">CampoMinadoTheme</span><span class="p">(</span>
+<span class="w">    </span><span class="n">darkTheme</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isSystemInDarkTheme</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">dynamicColor</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="nd">@Composable</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ... Lógica de seleção de cores</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Seleção de Tema Dinâmico (Dynamic Color)</strong>: O Composable implementa a lógica do Dynamic Color, que extrai cores do papel de parede do usuário para uso na aplicação.</dt><dd><ul>
+<li><p>A cor dinâmica é ativada se <cite>dynamicColor</cite> for <cite>true</cite> e a versão do Android for <strong>12 (SDK_INT &gt;= S)</strong> ou superior.</p></li>
+<li><p>Ele usa <cite>dynamicDarkColorScheme(context)</cite> ou <cite>dynamicLightColorScheme(context)</cite> para obter as cores do sistema.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>Fallback</strong>: Se a cor dinâmica não for aplicável (versão antiga do Android ou desativada), o tema é escolhido com base na preferência do sistema (<cite>darkTheme</cite>), caindo para <cite>DarkColorScheme</cite> ou <cite>LightColorScheme</cite>.</p></li>
+<li><p><strong>Aplicação Final</strong>: A função empacota o conteúdo (<cite>content: &#64;Composable () -&gt; Unit</cite>) com o Composable <strong>``MaterialTheme``</strong>, injetando o <code class="docutils literal notranslate"><span class="pre">colorScheme</span></code> determinado e a tipografia (presumivelmente definida em <code class="file docutils literal notranslate"><span class="pre">Type.kt</span></code>).</p></li>
+</ul>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        «&#160;&#160;<a href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>
