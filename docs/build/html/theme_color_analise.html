@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análise do Componente: Color.kt (Tema) &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Componente: SafeClick.kt" href="util_safeclick_analise.html" />
+    <link rel="prev" title="Análise do Componente: NavHost.kt" href="util_navhost_analise.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Análise do Componente: Color.kt (Tema)</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        «&#160;&#160;<a href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="util_safeclick_analise.html">Análise do Componente: SafeClick.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="analise-do-componente-color-kt-tema">
+<h1>Análise do Componente: Color.kt (Tema)<a class="headerlink" href="#analise-do-componente-color-kt-tema" title="Link to this heading">¶</a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">Color.kt</span></code> está localizado no pacote <code class="docutils literal notranslate"><span class="pre">ui.theme</span></code> e é responsável por definir as constantes de cor utilizadas na composição do tema visual da aplicação, conforme as diretrizes do <strong>Material Design 3 (M3)</strong> no Jetpack Compose.</p>
+<section id="objetivo-e-estrutura">
+<h2>Objetivo e Estrutura<a class="headerlink" href="#objetivo-e-estrutura" title="Link to this heading">¶</a></h2>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="k">package</span><span class="w"> </span><span class="nn">com.example.campominado.ui.theme</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.graphics.Color</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">Purple80</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFFD0BCFF</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">PurpleGrey80</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFFCCC2DC</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">Pink80</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFFEFB8C8</span><span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">Purple40</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFF6650a4</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">PurpleGrey40</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFF625b71</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">Pink40</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFF7D5260</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Tipo</strong>: Todas as cores são definidas como <strong>`val`</strong> (valores imutáveis) do tipo <strong>``Color``</strong> de Compose, garantindo a consistência e prevenindo alterações em tempo de execução.</p></li>
+<li><p><strong>Sistema de Cores</strong>: O arquivo define seis cores principais, organizadas em dois grupos de três.</p></li>
+</ul>
+</section>
+<section id="convencao-de-cores-material-design-3">
+<h2>Convenção de Cores (Material Design 3)<a class="headerlink" href="#convencao-de-cores-material-design-3" title="Link to this heading">¶</a></h2>
+<p>As cores são nomeadas com sufixos <strong>80</strong> e <strong>40</strong>, o que é uma convenção padrão no Compose para dar suporte a temas claros e escuros:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Grupo ``80`` (Ex: ``Purple80``, ``Pink80``)</strong>:</dt><dd><ul>
+<li><p>Cores mais claras e saturadas.</p></li>
+<li><p>São tipicamente usadas para construir o <strong>esquema de cores escuras</strong> (Dark Theme), pois fornecem contraste adequado em fundos escuros.</p></li>
+<li><p>Exemplo: <code class="docutils literal notranslate"><span class="pre">Purple80</span></code> (<code class="docutils literal notranslate"><span class="pre">#FFD0BCFF</span></code>) é uma tonalidade clara de roxo.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Grupo ``40`` (Ex: ``Purple40``, ``Pink40``)</strong>:</dt><dd><ul>
+<li><p>Cores mais escuras e profundas.</p></li>
+<li><p>São tipicamente usadas para construir o <strong>esquema de cores claras</strong> (Light Theme).</p></li>
+<li><p>Exemplo: <code class="docutils literal notranslate"><span class="pre">Purple40</span></code> (<code class="docutils literal notranslate"><span class="pre">#FF6650a4</span></code>) é uma tonalidade escura de roxo.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Essa separação permite que o arquivo <code class="file docutils literal notranslate"><span class="pre">Theme.kt</span></code> (mencionado na estrutura de arquivos) defina e alterne entre os temas claro e escuro de forma limpa e organizada, usando a orientação a objetos para encapsular o design.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        «&#160;&#160;<a href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="util_safeclick_analise.html">Análise do Componente: SafeClick.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

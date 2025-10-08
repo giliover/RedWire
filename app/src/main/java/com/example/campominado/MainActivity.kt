@@ -1,39 +1,33 @@
 package com.example.campominado
 
 import android.os.Bundle
+
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.campominado.ui.theme.CampoMinadoTheme
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 import androidx.lifecycle.lifecycleScope
 
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.campominado.ui.screens.MainMenuScreen
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
-class MainActivity : ComponentActivity() {
+import com.example.campominado.ui.theme.CampoMinadoTheme
 
+
+import com.example.campominado.util.NavHost
+
+internal class MainActivity : ComponentActivity() {
     private var isLoading by mutableStateOf(true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition { isLoading }
 
@@ -47,20 +41,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             if (!isLoading) {
                 CampoMinadoTheme {
-                    MyAppNavHost()
+                    var navHost = NavHost()
+                    navHost.Create()
                 }   
             }
-        }
-    }
-}
-
-@Composable
-fun MyAppNavHost() {
-    val navController: NavHostController = rememberNavController()
-
-    NavHost(navController = navController, startDestination = "mainmenu") {
-        composable("mainmenu") {
-            MainMenuScreen(navController)
         }
     }
 }

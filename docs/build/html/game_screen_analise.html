@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="br" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análise do Componente: GameScreen.kt &#8212; RedWire v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
+    <script src="_static/documentation_options.js?v=39d51604"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Componente: MainActivity.kt" href="main_activity_ui_analise.html" />
+    <link rel="prev" title="Análise do Componente: MainMenuScreen.kt" href="main_menu_screen_analise.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>RedWire v1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Análise do Componente: GameScreen.kt</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="Top">
+      
+        <p>
+        «&#160;&#160;<a href="main_menu_screen_analise.html">Análise do Componente: MainMenuScreen.kt</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="analise-do-componente-gamescreen-kt">
+<h1>Análise do Componente: GameScreen.kt<a class="headerlink" href="#analise-do-componente-gamescreen-kt" title="Link to this heading">¶</a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">GameScreen.kt</span></code> define a tela principal de jogabilidade do Campo Minado. Como parte do pacote <code class="docutils literal notranslate"><span class="pre">ui.screens</span></code>, ele é responsável por orquestrar o layout, exibir a lógica do jogo (função <code class="docutils literal notranslate"><span class="pre">Play</span></code>) e gerenciar a navegação de saída.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">internal</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">GameScreen</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Classe</strong>: <code class="docutils literal notranslate"><span class="pre">GameScreen</span></code></p></li>
+<li><p><strong>Pacote</strong>: <code class="docutils literal notranslate"><span class="pre">com.example.campominado.ui.screens</span></code></p></li>
+<li><p><strong>Função</strong>: Criar a interface de usuário (UI) da partida.</p></li>
+</ul>
+<section id="funcao-play-logica-de-jogo">
+<h2>Função Play (Lógica de Jogo)<a class="headerlink" href="#funcao-play-logica-de-jogo" title="Link to this heading">¶</a></h2>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">Play</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// run game</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Visibilidade</strong>: A função é marcada como <strong>`private`</strong>, indicando que a implementação da renderização do tabuleiro e a interação de jogo estão <strong>encapsuladas</strong> dentro da própria classe <code class="docutils literal notranslate"><span class="pre">GameScreen</span></code>.</p></li>
+<li><p><strong>Responsabilidade</strong>: Este é o ponto onde o objeto <strong>``Board``</strong> e a lógica de jogo (possivelmente gerenciada por um <strong>``GameManager``</strong>) seriam renderizados e executados, aplicando o princípio de <em>separação de preocupações</em> (SRP).</p></li>
+</ul>
+</section>
+<section id="funcao-create-entrada-da-tela">
+<h2>Função Create (Entrada da Tela)<a class="headerlink" href="#funcao-create-entrada-da-tela" title="Link to this heading">¶</a></h2>
+<p>Esta é a função Composable pública que é chamada pelo <strong>``NavHost``</strong> para exibir a tela.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">Create</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">,</span><span class="w"> </span><span class="n">mode</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ui</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ComponentesUI</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// ... layout e componentes</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Parâmetros</strong>:</dt><dd><ul>
+<li><p><strong>``navController: NavController``</strong>: Objeto de navegação do Jetpack, essencial para controlar o fluxo de telas (ex: voltar para o menu).</p></li>
+<li><p><strong>``mode: String``</strong>: Recebe o modo de jogo (ex: &quot;Fácil&quot;, &quot;Médio&quot;), permitindo que a tela se configure dinamicamente.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Composição de UI</strong>: A classe <strong>``ComponentesUI``</strong> é instanciada e utilizada para manter a consistência visual:</dt><dd><ul>
+<li><p><strong>Título</strong>: Exibe o modo de jogo (<cite>ui.CreateTitle(&quot;Modo de jogo: $mode&quot;)</cite>).</p></li>
+<li><dl class="simple">
+<dt><strong>Botão de Retorno</strong>:</dt><dd><ul>
+<li><p>Utiliza <cite>ui.CreateButton</cite>.</p></li>
+<li><p>A lógica de clique (<cite>onClick</cite>) é <strong>`{ navController.popBackStack() }`</strong>, que remove a tela atual da pilha de navegação e retorna à tela anterior (provavelmente <code class="file docutils literal notranslate"><span class="pre">MainMenuScreen.kt</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>Layout</strong>: A tela usa um <cite>Column</cite> que preenche todo o espaço (<cite>fillMaxSize</cite>) e centraliza o conteúdo vertical e horizontalmente, garantindo um design responsivo.</p></li>
+</ul>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="Bottom">
+      
+        <p>
+        «&#160;&#160;<a href="main_menu_screen_analise.html">Análise do Componente: MainMenuScreen.kt</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>
