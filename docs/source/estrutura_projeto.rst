@@ -6,24 +6,30 @@ O projeto *REDWIRE* (Campo Minado) segue a estrutura padrão de projetos Android
 
 ::
 
-    .
+.
     ├── app/
     │   └── src/
     │       └── main/
     │           ├── java/
     │           │   └── com/example/campominado/
+    │           │       ├── model/  <-- LÓGICA DE NEGÓCIO (OO)
+    │           │       │   └── Celula.kt
     │           │       ├── ui/
     │           │       │   ├── screens/
+    │           │       │   │   ├── CampoMinadoGrid.kt
     │           │       │   │   ├── ComponentesUI.kt
     │           │       │   │   ├── GameScreen.kt
     │           │       │   │   └── MainMenuScreen.kt
     │           │       │   ├── theme/
-    │           │       │   ├── utils/
-    │           │       │   └── MainActivity.kt
+    │           │       │   │   ├── Color.kt
+    │           │       │   │   ├── Theme.kt
+    │           │       │   │   └── Type.kt
+    │           │       │   └── utils/
+    │           │       │       └── SafeClick.kt
+    │           │       └── MainActivity.kt
     │           ├── res/
     │           └── AndroidManifest.xml
     └── ... (arquivos de configuração como .gradle, build.gradle.kts, etc.)
-
 Conteúdo Principal (``app/src/main/java/com/example/campominado/``)
 -------------------------------------------------------------------
 
@@ -31,6 +37,9 @@ Este pacote contém o código-fonte principal em **Kotlin**, organizado em subdi
 
 * :file:`MainActivity.kt`:
     O ponto de entrada principal da aplicação Android. Geralmente, inicializa a interface do usuário e pode orquestrar a navegação.
+* :file:`model/`:
+    Pacote de **Domínio/Lógica de Negócio**, contendo as classes fundamentais da Orientação a Objetos do jogo.
+    * :file:`Celula.kt`: Representa a unidade básica do Campo Minado (a célula, com estado e conteúdo).
 * :file:`ui/`:
     Contém a lógica e a definição de componentes relacionados à **Interface do Usuário (UI)**.
 * :file:`theme/`:
@@ -49,6 +58,8 @@ A organização em *screens* sugere uma abordagem moderna de UI (possivelmente u
     Define a tela onde o jogo Campo Minado é jogado. Espera-se que esta tela interaja com a **lógica de jogo orientada a objetos**.
 * :file:`ComponentesUI.kt`:
     Pode conter componentes de UI reutilizáveis, como botões, células do campo minado, ou diálogos.
+* :file:`CampoMinadoGrid.kt`:
+    Presumivelmente o componente de UI responsável por renderizar o tabuleiro (a grade de células) e interagir com a lógica do **``model``**.
 
 Pacote ``res/`` (Recursos)
 --------------------------
