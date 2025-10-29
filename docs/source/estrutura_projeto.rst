@@ -6,24 +6,30 @@ O projeto *REDWIRE* (Campo Minado) segue a estrutura padrão de projetos Android
 
 ::
 
-    .
+.
     ├── app/
     │   └── src/
     │       └── main/
     │           ├── java/
     │           │   └── com/example/campominado/
+    │           │       ├── model/  <-- LÓGICA DE NEGÓCIO (OO)
+    │           │       │   └── Celula.kt
     │           │       ├── ui/
     │           │       │   ├── screens/
+    │           │       │   │   ├── CampoMinadoGrid.kt
     │           │       │   │   ├── ComponentesUI.kt
     │           │       │   │   ├── GameScreen.kt
     │           │       │   │   └── MainMenuScreen.kt
     │           │       │   ├── theme/
-    │           │       │   ├── utils/
-    │           │       │   └── MainActivity.kt
+    │           │       │   │   ├── Color.kt
+    │           │       │   │   ├── Theme.kt
+    │           │       │   │   └── Type.kt
+    │           │       │   └── utils/
+    │           │       │       └── SafeClick.kt
+    │           │       └── MainActivity.kt
     │           ├── res/
     │           └── AndroidManifest.xml
     └── ... (arquivos de configuração como .gradle, build.gradle.kts, etc.)
-
 Conteúdo Principal (``app/src/main/java/com/example/campominado/``)
 -------------------------------------------------------------------
 
