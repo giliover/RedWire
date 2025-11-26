@@ -46,7 +46,7 @@ Gerenciamento de Navegação (Seleção de Dificuldade)
 A lógica de navegação utiliza o objeto **``NavController``** para transicionar para a tela de jogo, sendo um excelente exemplo de **passagem de dados através da rota**.
 
 * **Botões de Dificuldade**:
-    * A função ``ui.CreateButton`` é usada para criar três botões, um para cada nível de dificuldade: Fácil, Médio e Difícil.
+    A função ``ui.CreateButton`` é usada para criar três botões, um para cada nível de dificuldade: Fácil, Médio e Difícil.
 * **Rotas com Parâmetros**: O bloco de clique de cada botão utiliza a função ``navController.navigate()``, passando a dificuldade como parte do caminho da URL:
 
 ::
@@ -61,3 +61,23 @@ A lógica de navegação utiliza o objeto **``NavController``** para transiciona
     navController.navigate("game/hard")
 
 Essa implementação assume que o **``NavHost``** está configurado para reconhecer a rota ``"game/{mode}"`` e injetar o valor de `{mode}` (easy, medium, hard) como argumento para a tela de destino (:file:`GameScreen.kt`), que o recebe no seu parâmetro `mode`.
+
+Enfoque em Orientação a Objetos
+-------------------------------
+
+* **Encapsulamento da tela**: ``MainMenuScreen`` agrupa em uma única classe toda a lógica visual e de interação do menu, expondo apenas o método composable ``Create``.
+* **Composição de objetos**:
+  Utiliza ``ComponentesUI`` para criar botões e título, evitando duplicação de código visual.
+  Depende de um ``NavController`` para executar navegação, sem conhecer detalhes internos de como a navegação é implementada.
+* **Baixo acoplamento com a lógica de jogo**:
+  A tela apenas envia o parâmetro de dificuldade na rota; quem interpreta o parâmetro é a tela de jogo (`GameScreen`), mantendo responsabilidades bem separadas.
+
+Possíveis Melhorias OO
+----------------------
+
+* **Separar modelo de configuração de modos**:
+  Criar um modelo (por exemplo, ``GameMode``) que represente as opções de dificuldade, em vez de strings literais (`"easy"`, `"medium"`, `"hard"`), reduzindo risco de erro de digitação e centralizando regras de cada modo.
+* **Desacoplar navegação de string de rota**:
+  Introduzir um objeto de rotas ou um serviço (por exemplo, ``GameNavigator``) responsável por construir as rotas (`toGame(mode)`), para que a tela apenas invoque métodos fortemente tipados.
+* **Configurar ações como dependências**:
+  Em vez de chamar ``navController.navigate(...)`` diretamente, receber lambdas ou interfaces que representem ações de \"começar jogo fácil/médio/difícil\", o que facilita testes unitários da tela sem precisar de um ``NavController`` real.

@@ -1,44 +1,102 @@
 <!DOCTYPE html>
+<html class="writer-html5" lang="br" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<html lang="br" data-content_root="./">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise do Componente: Theme.kt (Implementação do Tema) &mdash; RedWire v1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
-    <title>Análise do Componente: Theme.kt (Implementação do Tema) &#8212; RedWire v1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
-    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
-    <script src="_static/documentation_options.js?v=39d51604"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=39d51604"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Análise do Componente: NavHost.kt" href="util_navhost_analise.html" />
-    <link rel="prev" title="Análise do Componente: MainActivity.kt" href="main_activity_ui_analise.html" /> 
-  </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>RedWire v1.0 documentation</span></a></h1>
-        <h2 class="heading"><span>Análise do Componente: Theme.kt (Implementação do Tema)</span></h2>
-      </div>
-      <div class="topnav" role="navigation" aria-label="Top">
-      
-        <p>
-        «&#160;&#160;<a href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a>&#160;&#160;»
-        </p>
+    <link rel="next" title="Análise do Componente: Color.kt (Tema)" href="theme_color_analise.html" />
+    <link rel="prev" title="Análise do Componente: SafeClick.kt" href="util_safeclick_analise.html" /> 
+</head>
 
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RedWire
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tópicos da Documentação:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_menu_screen_analise.html">Análise do Componente: MainMenuScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="campominadogrid_analise.html">Análise do Componente: CampoMinadoGrid.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_celula_analise.html">Análise do Modelo: Celula.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_calculo_analise.html">Análise do Utilitário: Calculo.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_soundmanager_analise.html">Análise do Utilitário: SoundManager.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_safeclick_analise.html">Análise do Componente: SafeClick.kt</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Análise do Componente: Theme.kt (Implementação do Tema)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#esquemas-de-cores-color-schemes">Esquemas de Cores (Color Schemes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#composable-campominadotheme">Composable CampoMinadoTheme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enfoque-em-orientacao-a-objetos">Enfoque em Orientação a Objetos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#possiveis-melhorias-oo">Possíveis Melhorias OO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_type_analise.html">Análise do Componente: Type.kt (Tipografia)</a></li>
+</ul>
+
+        </div>
       </div>
-      <div class="content" role="main">
-        
-        
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RedWire</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Análise do Componente: Theme.kt (Implementação do Tema)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/theme_analise.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <section id="analise-do-componente-theme-kt-implementacao-do-tema">
-<h1>Análise do Componente: Theme.kt (Implementação do Tema)<a class="headerlink" href="#analise-do-componente-theme-kt-implementacao-do-tema" title="Link to this heading">¶</a></h1>
+<h1>Análise do Componente: Theme.kt (Implementação do Tema)<a class="headerlink" href="#analise-do-componente-theme-kt-implementacao-do-tema" title="Link to this heading"></a></h1>
 <p>O arquivo <code class="file docutils literal notranslate"><span class="pre">Theme.kt</span></code>, localizado em <code class="docutils literal notranslate"><span class="pre">ui.theme</span></code>, é responsável por implementar o sistema de temas do Material Design 3 (M3) no Jetpack Compose. Ele define os esquemas de cores para os temas claro e escuro e o principal Composable que aplica o tema a todo o conteúdo da aplicação.</p>
 <section id="esquemas-de-cores-color-schemes">
-<h2>Esquemas de Cores (Color Schemes)<a class="headerlink" href="#esquemas-de-cores-color-schemes" title="Link to this heading">¶</a></h2>
+<h2>Esquemas de Cores (Color Schemes)<a class="headerlink" href="#esquemas-de-cores-color-schemes" title="Link to this heading"></a></h2>
 <p>Os esquemas de cores utilizam as constantes definidas em <code class="file docutils literal notranslate"><span class="pre">Color.kt</span></code> para criar objetos <code class="docutils literal notranslate"><span class="pre">ColorScheme</span></code>, que representam as cores funcionais da interface (primária, secundária, terciária, etc.).</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -74,7 +132,7 @@
 </div>
 </section>
 <section id="composable-campominadotheme">
-<h2>Composable CampoMinadoTheme<a class="headerlink" href="#composable-campominadotheme" title="Link to this heading">¶</a></h2>
+<h2>Composable CampoMinadoTheme<a class="headerlink" href="#composable-campominadotheme" title="Link to this heading"></a></h2>
 <p>Esta é a função principal que envolve o conteúdo da aplicação, aplicando a lógica de seleção de tema.</p>
 <div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">CampoMinadoTheme</span><span class="p">(</span>
@@ -99,25 +157,53 @@
 <li><p><strong>Aplicação Final</strong>: A função empacota o conteúdo (<cite>content: &#64;Composable () -&gt; Unit</cite>) com o Composable <strong>``MaterialTheme``</strong>, injetando o <code class="docutils literal notranslate"><span class="pre">colorScheme</span></code> determinado e a tipografia (presumivelmente definida em <code class="file docutils literal notranslate"><span class="pre">Type.kt</span></code>).</p></li>
 </ul>
 </section>
+<section id="enfoque-em-orientacao-a-objetos">
+<h2>Enfoque em Orientação a Objetos<a class="headerlink" href="#enfoque-em-orientacao-a-objetos" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Objetos de configuração imutáveis</strong>: <code class="docutils literal notranslate"><span class="pre">DarkColorScheme</span></code> e <code class="docutils literal notranslate"><span class="pre">LightColorScheme</span></code> são valores (<cite>val</cite>) que representam configurações estáveis de tema.</p></li>
+<li><p><strong>Função de alto nível como &quot;objeto de aplicação&quot;</strong>: <code class="docutils literal notranslate"><span class="pre">CampoMinadoTheme</span></code> age como uma fachada que decide qual configuração aplicar e envolve todo o conteúdo da UI.</p></li>
+<li><p><strong>Separação de responsabilidades</strong>: a lógica de seleção entre tema claro, escuro e dinâmico é mantida em um único lugar, evitando duplicação em telas individuais.</p></li>
+</ul>
+</section>
+<section id="possiveis-melhorias-oo">
+<h2>Possíveis Melhorias OO<a class="headerlink" href="#possiveis-melhorias-oo" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Modelar tema como tipo de domínio</strong>: introduzir tipos que representem explicitamente os modos de tema (por exemplo, <code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">class</span> <span class="pre">AppThemeMode</span> <span class="pre">{</span> <span class="pre">LIGHT,</span> <span class="pre">DARK,</span> <span class="pre">SYSTEM,</span> <span class="pre">DYNAMIC</span> <span class="pre">}</span></code>) para evitar condicionais dispersas.</p></li>
+<li><p><strong>Configuração externa do tema</strong>: extrair estratégias de seleção de tema para objetos dedicados (como <cite>ThemePolicy</cite>), permitindo trocar facilmente a forma como o tema é decidido (por exemplo, por preferência do usuário).</p></li>
+<li><p><strong>Unificação com outras camadas</strong>: centralizar dependências de design (cores, tipografia, espaçamentos) em um conjunto de objetos de configuração (&quot;design system&quot;) reutilizado em toda a aplicação.</p></li>
+</ul>
+</section>
 </section>
 
 
-      </div>
-      <div class="bottomnav" role="navigation" aria-label="Bottom">
-      
-        <p>
-        «&#160;&#160;<a href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a>&#160;&#160;»
-        </p>
-
-      </div>
-
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="util_safeclick_analise.html" class="btn btn-neutral float-left" title="Análise do Componente: SafeClick.kt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="theme_color_analise.html" class="btn btn-neutral float-right" title="Análise do Componente: Color.kt (Tema)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  </body>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Caio Silva E Carlos Vergílio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

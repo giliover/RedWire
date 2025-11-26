@@ -59,3 +59,23 @@ O componente de botão demonstra um conceito importante de **Orientação a Obje
 * **Encapsulamento de Comportamento**: Em vez de implementar a lógica de *debounce* (prevenção de cliques rápidos) diretamente na função Composable, ela instancia a classe **``SafeClick``** (importada de :file:`com.example.campominado.util.SafeClick`).
 * **Delegação**: A chamada `safeClick.Create() { onClick() }` utiliza o objeto `SafeClick` para interceptar a ação de clique.
 * **Vantagem da OO**: Essa abordagem garante que a lógica de "clique seguro" seja **reutilizável** em qualquer botão do app e **testável** isoladamente, sem poluir o código do componente visual.
+
+Enfoque em Orientação a Objetos
+-------------------------------
+
+* **Objeto de fachada da UI**:
+  ``ComponentesUI`` funciona como uma fachada que reúne vários componentes visuais reutilizáveis (título, botão, background, etc.).
+* **Composição e delegação**:
+  A lógica complexa de clique (``SafeClick``) é delegada a outro objeto especializado, aplicando o princípio de **encapsulamento** e **separação de preocupações**.
+* **Coesão**:
+  Os métodos da classe têm uma responsabilidade clara: construir pedaços de interface que podem ser combinados por diversas telas.
+
+Possíveis Melhorias OO
+----------------------
+
+* **Interfaces para componentes de UI**:
+  Definir contratos para componentes reutilizáveis (por exemplo, uma interface de \"ButtonFactory\"), permitindo variações de estilo/tema sem alterar as telas.
+* **Injeção de dependências**:
+  Em vez de instanciar ``SafeClick`` internamente, recebê-lo via construtor ou método, facilitando a troca da estratégia de debounce (por exemplo, em testes).
+* **Divisão em componentes menores**:
+  Se a quantidade de funções crescer, dividir em múltiplas classes com focos específicos (por exemplo, ``TextComponents``, ``ButtonComponents``, ``BackgroundComponents``) para manter alta coesão.

@@ -1,41 +1,103 @@
 <!DOCTYPE html>
+<html class="writer-html5" lang="br" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<html lang="br" data-content_root="./">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise do Componente: MainActivity.kt &mdash; RedWire v1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
-    <title>Análise do Componente: MainActivity.kt &#8212; RedWire v1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
-    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
-    <script src="_static/documentation_options.js?v=39d51604"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=39d51604"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Análise do Componente: GameScreen.kt" href="game_screen_analise.html" /> 
-  </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>RedWire v1.0 documentation</span></a></h1>
-        <h2 class="heading"><span>Análise do Componente: MainActivity.kt</span></h2>
-      </div>
-      <div class="topnav" role="navigation" aria-label="Top">
-      
-        <p>
-        «&#160;&#160;<a href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        </p>
+    <link rel="next" title="Análise do Componente: MainMenuScreen.kt" href="main_menu_screen_analise.html" />
+    <link rel="prev" title="Estrutura de Arquivos do Projeto" href="estrutura_projeto.html" /> 
+</head>
 
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RedWire
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tópicos da Documentação:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Análise do Componente: MainActivity.kt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classes-e-extensoes">Classes e Extensões</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gerenciamento-de-splash-screen">Gerenciamento de Splash Screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#renderizacao-e-navegacao">Renderização e Navegação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enfoque-em-orientacao-a-objetos">Enfoque em Orientação a Objetos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#possiveis-melhorias-oo">Possíveis Melhorias OO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main_menu_screen_analise.html">Análise do Componente: MainMenuScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="campominadogrid_analise.html">Análise do Componente: CampoMinadoGrid.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_celula_analise.html">Análise do Modelo: Celula.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_calculo_analise.html">Análise do Utilitário: Calculo.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_soundmanager_analise.html">Análise do Utilitário: SoundManager.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_safeclick_analise.html">Análise do Componente: SafeClick.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_analise.html">Análise do Componente: Theme.kt (Implementação do Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_type_analise.html">Análise do Componente: Type.kt (Tipografia)</a></li>
+</ul>
+
+        </div>
       </div>
-      <div class="content" role="main">
-        
-        
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RedWire</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Análise do Componente: MainActivity.kt</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/main_activity_ui_analise.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <section id="analise-do-componente-mainactivity-kt">
-<h1>Análise do Componente: MainActivity.kt<a class="headerlink" href="#analise-do-componente-mainactivity-kt" title="Link to this heading">¶</a></h1>
+<h1>Análise do Componente: MainActivity.kt<a class="headerlink" href="#analise-do-componente-mainactivity-kt" title="Link to this heading"></a></h1>
 <p>O arquivo <code class="file docutils literal notranslate"><span class="pre">MainActivity.kt</span></code> serve como o ponto de entrada principal do aplicativo Android. Ele utiliza componentes modernos do Jetpack, como <strong>Compose</strong>, <strong>LifecycleScope</strong> para concorrência (Coroutines) e a API <strong>SplashScreen</strong> para uma inicialização suave.</p>
 <section id="classes-e-extensoes">
-<h2>Classes e Extensões<a class="headerlink" href="#classes-e-extensoes" title="Link to this heading">¶</a></h2>
+<h2>Classes e Extensões<a class="headerlink" href="#classes-e-extensoes" title="Link to this heading"></a></h2>
 <div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">internal</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MainActivity</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ComponentActivity</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">isLoading</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
 <span class="w">    </span><span class="c1">// ...</span>
@@ -49,7 +111,7 @@
 </ul>
 </section>
 <section id="gerenciamento-de-splash-screen">
-<h2>Gerenciamento de Splash Screen<a class="headerlink" href="#gerenciamento-de-splash-screen" title="Link to this heading">¶</a></h2>
+<h2>Gerenciamento de Splash Screen<a class="headerlink" href="#gerenciamento-de-splash-screen" title="Link to this heading"></a></h2>
 <p>O código implementa uma tela de <em>splash</em> temporizada usando o ciclo de vida da <em>Activity</em> e coroutines:</p>
 <ol class="arabic simple">
 <li><p><strong>Instalação</strong>: <code class="docutils literal notranslate"><span class="pre">val</span> <span class="pre">splashScreen</span> <span class="pre">=</span> <span class="pre">installSplashScreen()</span></code> anexa a tela de <em>splash</em> nativa.</p></li>
@@ -61,7 +123,7 @@
 </ol>
 </section>
 <section id="renderizacao-e-navegacao">
-<h2>Renderização e Navegação<a class="headerlink" href="#renderizacao-e-navegacao" title="Link to this heading">¶</a></h2>
+<h2>Renderização e Navegação<a class="headerlink" href="#renderizacao-e-navegacao" title="Link to this heading"></a></h2>
 <p>O método <strong>``onCreate``</strong> finaliza configurando a UI do Jetpack Compose:</p>
 <div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="n">enableEdgeToEdge</span><span class="p">()</span>
 
@@ -82,23 +144,58 @@
 <li><p><strong>Inicialização da Navegação</strong>: A linha <cite>navHost.Create()</cite> sugere que a classe <strong>``NavHost``</strong> (presumivelmente localizada em <code class="file docutils literal notranslate"><span class="pre">com.example.campominado.util.NavHost</span></code>) é responsável por configurar o grafo de navegação e renderizar a tela inicial do aplicativo (provavelmente a <cite>MainMenuScreen.kt</cite>).</p></li>
 </ul>
 </section>
+<section id="enfoque-em-orientacao-a-objetos">
+<h2>Enfoque em Orientação a Objetos<a class="headerlink" href="#enfoque-em-orientacao-a-objetos" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Herança</strong>: <code class="docutils literal notranslate"><span class="pre">MainActivity</span></code> estende <code class="docutils literal notranslate"><span class="pre">ComponentActivity</span></code>, reaproveitando toda a infraestrutura de ciclo de vida, gerenciamento de estado e integração com Compose fornecida pelo framework.</p></li>
+<li><p><strong>Encapsulamento de estado</strong>: a propriedade <code class="docutils literal notranslate"><span class="pre">isLoading</span></code> é privada e controlada apenas dentro da classe, escondendo dos consumidores externos como a splash é gerenciada.</p></li>
+<li><p><strong>Composição</strong>: a Activity não sabe como navegar ou como desenhar cada tela; delega essas tarefas para objetos especializados:
+<code class="docutils literal notranslate"><span class="pre">CampoMinadoTheme</span></code> para aparência global.
+<code class="docutils literal notranslate"><span class="pre">NavHost</span></code> para o fluxo de telas.</p></li>
+</ul>
+</section>
+<section id="possiveis-melhorias-oo">
+<h2>Possíveis Melhorias OO<a class="headerlink" href="#possiveis-melhorias-oo" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Extrair lógica de inicialização</strong>:
+Criar uma classe ou objeto dedicado (por exemplo, <code class="docutils literal notranslate"><span class="pre">SplashController</span></code> ou <code class="docutils literal notranslate"><span class="pre">AppInitializer</span></code>) responsável por decidir quando encerrar a splash, reduzindo a quantidade de regra dentro da Activity.</p></li>
+<li><p><strong>Abstrair a navegação</strong>:
+Em vez de instanciar <code class="docutils literal notranslate"><span class="pre">NavHost</span></code> diretamente, receber uma dependência que implemente uma interface de navegação (por exemplo, <code class="docutils literal notranslate"><span class="pre">NavigationGraph</span></code>), permitindo variações em tempo de teste ou debug.</p></li>
+<li><p><strong>Inversão de controle (IoC/DI)</strong>:
+Integrar um contêiner de injeção de dependência (como Hilt ou Koin) para construir objetos como <code class="docutils literal notranslate"><span class="pre">NavHost</span></code> e serviços, reduzindo o acoplamento a implementações concretas.</p></li>
+</ul>
+</section>
 </section>
 
 
-      </div>
-      <div class="bottomnav" role="navigation" aria-label="Bottom">
-      
-        <p>
-        «&#160;&#160;<a href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        </p>
-
-      </div>
-
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="estrutura_projeto.html" class="btn btn-neutral float-left" title="Estrutura de Arquivos do Projeto" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="main_menu_screen_analise.html" class="btn btn-neutral float-right" title="Análise do Componente: MainMenuScreen.kt" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  </body>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Caio Silva E Carlos Vergílio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

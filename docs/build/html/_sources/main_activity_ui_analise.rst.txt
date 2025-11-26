@@ -52,3 +52,22 @@ O método **``onCreate``** finaliza configurando a UI do Jetpack Compose:
 * **``setContent``**: O bloco Compose que define a hierarquia da UI.
 * **Controle de Renderização**: O tema (`CampoMinadoTheme`) e o host de navegação (`NavHost`) só são carregados quando **``!isLoading``** (a tela de *splash* desaparece), garantindo que a UI não seja renderizada antes do tempo de espera mínimo.
 * **Inicialização da Navegação**: A linha `navHost.Create()` sugere que a classe **``NavHost``** (presumivelmente localizada em :file:`com.example.campominado.util.NavHost`) é responsável por configurar o grafo de navegação e renderizar a tela inicial do aplicativo (provavelmente a `MainMenuScreen.kt`).
+
+Enfoque em Orientação a Objetos
+-------------------------------
+
+* **Herança**: ``MainActivity`` estende ``ComponentActivity``, reaproveitando toda a infraestrutura de ciclo de vida, gerenciamento de estado e integração com Compose fornecida pelo framework.
+* **Encapsulamento de estado**: a propriedade ``isLoading`` é privada e controlada apenas dentro da classe, escondendo dos consumidores externos como a splash é gerenciada.
+* **Composição**: a Activity não sabe como navegar ou como desenhar cada tela; delega essas tarefas para objetos especializados:
+  ``CampoMinadoTheme`` para aparência global.
+  ``NavHost`` para o fluxo de telas.
+
+Possíveis Melhorias OO
+----------------------
+
+* **Extrair lógica de inicialização**:
+  Criar uma classe ou objeto dedicado (por exemplo, ``SplashController`` ou ``AppInitializer``) responsável por decidir quando encerrar a splash, reduzindo a quantidade de regra dentro da Activity.
+* **Abstrair a navegação**:
+  Em vez de instanciar ``NavHost`` diretamente, receber uma dependência que implemente uma interface de navegação (por exemplo, ``NavigationGraph``), permitindo variações em tempo de teste ou debug.
+* **Inversão de controle (IoC/DI)**:
+  Integrar um contêiner de injeção de dependência (como Hilt ou Koin) para construir objetos como ``NavHost`` e serviços, reduzindo o acoplamento a implementações concretas.

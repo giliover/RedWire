@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="br" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise do Utilitário: Calculo.kt &mdash; RedWire v1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=39d51604"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Utilitário: SoundManager.kt" href="util_soundmanager_analise.html" />
+    <link rel="prev" title="Análise do Modelo: Celula.kt" href="model_celula_analise.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RedWire
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tópicos da Documentação:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_menu_screen_analise.html">Análise do Componente: MainMenuScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="campominadogrid_analise.html">Análise do Componente: CampoMinadoGrid.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_celula_analise.html">Análise do Modelo: Celula.kt</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Análise do Utilitário: Calculo.kt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#visao-geral">Visão Geral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funcao-gerartabuleiro">Função gerarTabuleiro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funcao-contarbombasadjacentes">Função contarBombasAdjacentes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funcao-revelarcelula">Função revelarCelula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funcao-revelartudo">Função revelarTudo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enfoque-em-orientacao-a-objetos">Enfoque em Orientação a Objetos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#possiveis-melhorias-oo">Possíveis Melhorias OO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="util_soundmanager_analise.html">Análise do Utilitário: SoundManager.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_safeclick_analise.html">Análise do Componente: SafeClick.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_analise.html">Análise do Componente: Theme.kt (Implementação do Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_type_analise.html">Análise do Componente: Type.kt (Tipografia)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RedWire</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Análise do Utilitário: Calculo.kt</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/util_calculo_analise.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="analise-do-utilitario-calculo-kt">
+<h1>Análise do Utilitário: Calculo.kt<a class="headerlink" href="#analise-do-utilitario-calculo-kt" title="Link to this heading"></a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">Calculo.kt</span></code>, localizado no pacote <code class="docutils literal notranslate"><span class="pre">com.example.campominado.util</span></code>,
+centraliza toda a <strong>lógica de regras do jogo</strong> Campo Minado. Em vez de espalhar
+regras pelas telas, ele concentra o cálculo do tabuleiro, a contagem de bombas
+adjacentes e as operações de revelar células.</p>
+<section id="visao-geral">
+<h2>Visão Geral<a class="headerlink" href="#visao-geral" title="Link to this heading"></a></h2>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">object</span><span class="w"> </span><span class="nc">Calculo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">gerarTabuleiro</span><span class="p">(</span>
+<span class="w">        </span><span class="n">linhas</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">        </span><span class="n">colunas</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">        </span><span class="n">totalBombas</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span>
+<span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MutableList</span><span class="o">&lt;</span><span class="n">Celula</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">contarBombasAdjacentes</span><span class="p">(</span>
+<span class="w">        </span><span class="n">campo</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MutableList</span><span class="o">&lt;</span><span class="n">Celula</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">linha</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">        </span><span class="n">coluna</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span>
+<span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">revelarCelula</span><span class="p">(</span><span class="n">celula</span><span class="p">:</span><span class="w"> </span><span class="n">Celula</span><span class="p">,</span><span class="w"> </span><span class="n">campo</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MutableList</span><span class="o">&lt;</span><span class="n">Celula</span><span class="o">&gt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">revelarTudo</span><span class="p">(</span><span class="n">campo</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MutableList</span><span class="o">&lt;</span><span class="n">Celula</span><span class="o">&gt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Tipo</strong>: <code class="docutils literal notranslate"><span class="pre">object</span></code> (Singleton em Kotlin), garantindo uma única instância global.</p></li>
+<li><p><strong>Responsabilidade</strong>: Implementar as regras de geração e atualização do tabuleiro.</p></li>
+<li><p><strong>Colaboração</strong>: Trabalha diretamente com o modelo <code class="file docutils literal notranslate"><span class="pre">Celula.kt</span></code>.</p></li>
+</ul>
+</section>
+<section id="funcao-gerartabuleiro">
+<h2>Função gerarTabuleiro<a class="headerlink" href="#funcao-gerartabuleiro" title="Link to this heading"></a></h2>
+<p>Esta função cria a matriz de células e posiciona as bombas de forma aleatória.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">fun</span><span class="w"> </span><span class="nf">gerarTabuleiro</span><span class="p">(</span>
+<span class="w">    </span><span class="n">linhas</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="n">colunas</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="n">totalBombas</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span>
+<span class="p">):</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MutableList</span><span class="o">&lt;</span><span class="n">Celula</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">campo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">List</span><span class="p">(</span><span class="n">linhas</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">linha</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">MutableList</span><span class="p">(</span><span class="n">colunas</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">coluna</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">Celula</span><span class="p">(</span><span class="n">linha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linha</span><span class="p">,</span><span class="w"> </span><span class="n">coluna</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coluna</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">bombasColocadas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">bombasColocadas</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">totalBombas</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="n">linhas</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="n">colunas</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">celula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">campo</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">celula</span><span class="p">.</span><span class="na">temMina</span><span class="p">.</span><span class="na">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">celula</span><span class="p">.</span><span class="na">temMina</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">            </span><span class="n">bombasColocadas</span><span class="o">++</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">linhas</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">colunas</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">celula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">campo</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">celula</span><span class="p">.</span><span class="na">temMina</span><span class="p">.</span><span class="na">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">celula</span><span class="p">.</span><span class="na">valor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contarBombasAdjacentes</span><span class="p">(</span><span class="n">campo</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">campo</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Criação do Campo</strong>: Usa <cite>List</cite> e <cite>MutableList</cite> para criar uma grade de <code class="docutils literal notranslate"><span class="pre">Celula</span></code>.</p></li>
+<li><p><strong>Posicionamento Aleatório de Bombas</strong>: Gera índices aleatórios (<cite>Random.nextInt</cite>) até
+que o número desejado de bombas seja atingido.</p></li>
+<li><p><strong>Cálculo de Vizinhança</strong>: Após posicionar as bombas, calcula o valor de cada célula
+(quantidade de minas adjacentes).</p></li>
+</ul>
+</section>
+<section id="funcao-contarbombasadjacentes">
+<h2>Função contarBombasAdjacentes<a class="headerlink" href="#funcao-contarbombasadjacentes" title="Link to this heading"></a></h2>
+<p>Esta função privada varre a vizinhança 3x3 de uma célula e soma quantas minas existem.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">contarBombasAdjacentes</span><span class="p">(</span>
+<span class="w">    </span><span class="n">campo</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MutableList</span><span class="o">&lt;</span><span class="n">Celula</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">linha</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="n">coluna</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span>
+<span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="n">linha</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)..(</span><span class="n">linha</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="n">coluna</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)..(</span><span class="n">coluna</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">campo</span><span class="p">.</span><span class="na">indices</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">campo</span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="p">.</span><span class="na">indices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">campo</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span><span class="p">.</span><span class="na">temMina</span><span class="p">.</span><span class="na">value</span><span class="p">)</span><span class="w"> </span><span class="n">count</span><span class="o">++</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">count</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Controle de Bordas</strong>: Os operadores <code class="docutils literal notranslate"><span class="pre">in</span> <span class="pre">campo.indices</span></code> evitam acessos fora dos limites.</p></li>
+<li><p><strong>Reuso</strong>: A função é usada em <code class="docutils literal notranslate"><span class="pre">gerarTabuleiro</span></code> para preencher o campo com valores.</p></li>
+</ul>
+</section>
+<section id="funcao-revelarcelula">
+<h2>Função revelarCelula<a class="headerlink" href="#funcao-revelarcelula" title="Link to this heading"></a></h2>
+<p>Responsável por revelar uma célula e, se ela for vazia (valor 0 e sem mina),
+revelar recursivamente suas vizinhas.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">fun</span><span class="w"> </span><span class="nf">revelarCelula</span><span class="p">(</span><span class="n">celula</span><span class="p">:</span><span class="w"> </span><span class="n">Celula</span><span class="p">,</span><span class="w"> </span><span class="n">campo</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MutableList</span><span class="o">&lt;</span><span class="n">Celula</span><span class="o">&gt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">celula</span><span class="p">.</span><span class="na">revelada</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">celula</span><span class="p">.</span><span class="na">marcada</span><span class="p">.</span><span class="na">value</span><span class="p">)</span><span class="w"> </span><span class="k">return</span>
+<span class="w">    </span><span class="n">celula</span><span class="p">.</span><span class="na">revelada</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">celula</span><span class="p">.</span><span class="na">valor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">celula</span><span class="p">.</span><span class="na">temMina</span><span class="p">.</span><span class="na">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="n">celula</span><span class="p">.</span><span class="na">linha</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)..(</span><span class="n">celula</span><span class="p">.</span><span class="na">linha</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="n">celula</span><span class="p">.</span><span class="na">coluna</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)..(</span><span class="n">celula</span><span class="p">.</span><span class="na">coluna</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">campo</span><span class="p">.</span><span class="na">indices</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">campo</span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="p">.</span><span class="na">indices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">revelarCelula</span><span class="p">(</span><span class="n">campo</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">campo</span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Regra de Negócio</strong>: Não revela células já reveladas ou marcadas.</p></li>
+<li><p><strong>Propagação</strong>: Implementa o comportamento clássico do Campo Minado, onde
+áreas vazias &quot;abrem&quot; automaticamente.</p></li>
+</ul>
+</section>
+<section id="funcao-revelartudo">
+<h2>Função revelarTudo<a class="headerlink" href="#funcao-revelartudo" title="Link to this heading"></a></h2>
+<p>Usada em situações de <em>Game Over</em> para mostrar todo o campo.</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">fun</span><span class="w"> </span><span class="nf">revelarTudo</span><span class="p">(</span><span class="n">campo</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MutableList</span><span class="o">&lt;</span><span class="n">Celula</span><span class="o">&gt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">linha</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">campo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">celula</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">linha</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">celula</span><span class="p">.</span><span class="na">revelada</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Uso Típico</strong>: Chamado quando o jogador aciona uma bomba.</p></li>
+<li><p><strong>Feedback Visual</strong>: Permite que o jogador veja a distribuição de bombas
+após perder a partida.</p></li>
+</ul>
+</section>
+<section id="enfoque-em-orientacao-a-objetos">
+<h2>Enfoque em Orientação a Objetos<a class="headerlink" href="#enfoque-em-orientacao-a-objetos" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Objeto singleton de domínio</strong>:
+<code class="docutils literal notranslate"><span class="pre">Calculo</span></code> é declarado como <code class="docutils literal notranslate"><span class="pre">object</span></code>, funcionando como um serviço de regras compartilhado em toda a aplicação.</p></li>
+<li><p><strong>Separação de preocupações</strong>:
+A geração de tabuleiro, cálculo de vizinhança e regras de revelação estão isoladas da camada de UI, reforçando o papel de <strong>modelo de domínio</strong>.</p></li>
+<li><p><strong>Colaboração com o modelo</strong>:
+Trabalha diretamente com a classe <code class="docutils literal notranslate"><span class="pre">Celula</span></code>, modificando seu estado de forma consistente e previsível.</p></li>
+</ul>
+</section>
+<section id="possiveis-melhorias-oo">
+<h2>Possíveis Melhorias OO<a class="headerlink" href="#possiveis-melhorias-oo" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Evitar estado implícito em singletons</strong>:
+Em contextos mais complexos, considerar transformar <code class="docutils literal notranslate"><span class="pre">Calculo</span></code> em uma classe injetável (por exemplo, <code class="docutils literal notranslate"><span class="pre">BoardCalculator</span></code>), o que permite múltiplas instâncias com estratégias diferentes de tabuleiro.</p></li>
+<li><p><strong>Modelar regras em tipos dedicados</strong>:
+Extrair conceitos como &quot;configuração de jogo&quot; (linhas, colunas, bombas) para classes específicas (<cite>GameConfig</cite>, <cite>BoardSize</cite>, <cite>BombCount</cite>), em vez de espalhar inteiros crus.</p></li>
+<li><p><strong>Retornar objetos de domínio mais ricos</strong>:
+Em vez de trabalhar diretamente com <cite>List&lt;MutableList&lt;Celula&gt;&gt;</cite> em todos os lugares, encapsular o tabuleiro em uma classe (<cite>Board</cite>) que ofereça operações de alto nível (revelar, marcar, verificar vitória), delegando a <code class="docutils literal notranslate"><span class="pre">Calculo</span></code> apenas o trabalho puramente algorítmico.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="model_celula_analise.html" class="btn btn-neutral float-left" title="Análise do Modelo: Celula.kt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="util_soundmanager_analise.html" class="btn btn-neutral float-right" title="Análise do Utilitário: SoundManager.kt" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Caio Silva E Carlos Vergílio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

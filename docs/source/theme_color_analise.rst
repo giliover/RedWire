@@ -40,3 +40,19 @@ As cores são nomeadas com sufixos **80** e **40**, o que é uma convenção pad
     * Exemplo: ``Purple40`` (``#FF6650a4``) é uma tonalidade escura de roxo.
 
 Essa separação permite que o arquivo :file:`Theme.kt` (mencionado na estrutura de arquivos) defina e alterne entre os temas claro e escuro de forma limpa e organizada, usando a orientação a objetos para encapsular o design.
+
+Enfoque em Orientação a Objetos
+-------------------------------
+
+* **Valores imutáveis de configuração**:
+  Cada cor é um ``val`` de ``Color``, representando um pedaço estável do design system.
+* **Reuso orientado a objetos**:
+  As mesmas cores são reutilizadas em diferentes esquemas (claro/escuro) por meio de objetos de tema em :file:`Theme.kt`.
+
+Possíveis Melhorias OO
+----------------------
+
+* **Agrupar cores em objetos semânticos**:
+  Em vez de nomes genéricos como ``Purple80``, criar objetos que expressem o papel da cor (`Primary`, `Secondary`, `Error`) e mapeá-los para valores concretos.
+* **Camada de \"design system\"**:
+  Encapsular cores, tipografia e espaçamentos em um conjunto de tipos de domínio para design, usados em toda a aplicação com contratos claros em vez de constantes soltas.
