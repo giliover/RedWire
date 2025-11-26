@@ -7,12 +7,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.campominado.util.rememberSoundManager
+import com.example.campominado.util.rememberSoundManager
+import com.example.campominado.R
+import androidx.compose.runtime.*
 
 internal class MainMenuScreen {
 
     @Composable
     fun Create(navController: NavController) {
+        val soundManager = rememberSoundManager()
         val ui = ComponentesUI()
+        
+        // Inicia a música de fundo quando o jogo começa
+        LaunchedEffect(Unit) {
+            try {
+                soundManager.playBackgroundMusic(R.raw.main_menu)
+            } catch (e: Exception) {
+                // Se o arquivo não existir, apenas ignora
+                println("Música de fundo não encontrada: ${e.message}")
+            }
+        }
 
         // Usa o background padronizado de todos os menus
         ui.CreateBackground {

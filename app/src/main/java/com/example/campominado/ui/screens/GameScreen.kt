@@ -13,11 +13,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.campominado.model.Celula
 import com.example.campominado.util.Calculo
+import com.example.campominado.util.rememberSoundManager
+import com.example.campominado.R
 
 internal class GameScreen {
 
     @Composable
     private fun Play(mode: String) {
+        val soundManager = rememberSoundManager()
         val (linhas, colunas, totalBombas) = when (mode) {
             "easy" -> Triple(10, 10, 10)
             "medium" -> Triple(10, 12, 15)
@@ -27,6 +30,16 @@ internal class GameScreen {
 
         val campo = remember { mutableStateOf(Calculo.gerarTabuleiro(linhas, colunas, totalBombas)) }
         val gameOver = remember { mutableStateOf(false) }
+        
+        // Inicia a música de fundo quando o jogo começa
+        LaunchedEffect(Unit) {
+            try {
+                soundManager.playBackgroundMusic(R.raw.war_theme)
+            } catch (e: Exception) {
+                // Se o arquivo não existir, apenas ignora
+                println("Música de fundo não encontrada: ${e.message}")
+            }
+        }
 
         Column(modifier = Modifier.padding(16.dp)) {
             for (linha in campo.value) {
@@ -51,8 +64,15 @@ internal class GameScreen {
                                         if (!celula.temMina.value) {
                                             Calculo.revelarCelula(celula, campo.value)
                                         } else {
+                                            // Toca som de bomba quando explode
+                                            try {
+                                                soundManager.playBombSound(R.raw.bomb_explosion)
+                                            } catch (e: Exception) {
+                                                println("Som de bomba não encontrado: ${e.message}")
+                                            }
                                             Calculo.revelarTudo(campo.value)
                                             gameOver.value = true
+                                            soundManager.stopBackgroundMusic()
                                             println("💣 Game Over!")
                                         }
                                     },
@@ -88,6 +108,7 @@ internal class GameScreen {
     @Composable
     fun Create(navController: NavController, mode: String) {
         val ui = ComponentesUI()
+        val soundManager = rememberSoundManager()
 
         ui.CreateBackground {
             Column(
@@ -99,7 +120,13 @@ internal class GameScreen {
                 Spacer(modifier = Modifier.height(16.dp))
                 Play(mode)
                 Spacer(modifier = Modifier.height(16.dp))
-                ui.CreateButton(onClick = { navController.popBackStack() }, text = "Voltar")
+                ui.CreateButton(
+                    text = "Voltar",
+                    onClick = { 
+                        soundManager.stopBackgroundMusic()
+                        navController.popBackStack() 
+                    }
+                )
             }
         }
     }
