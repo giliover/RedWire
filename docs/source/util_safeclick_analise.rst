@@ -50,3 +50,23 @@ A classe ``SafeClick`` demonstra o princípio da **Encapsulação**:
 
 * A lógica complexa de controle de estado concorrente e temporização assíncrona é completamente **isolada** dentro da classe.
 * As classes de UI (como ``ComponentesUI``) não precisam se preocupar com os detalhes da implementação, elas apenas instanciam ``SafeClick`` e fornecem a ação a ser executada, resultando em código mais limpo e manutenção facilitada.
+
+Enfoque em Orientação a Objetos
+-------------------------------
+
+* **Objeto responsável por uma única regra**:
+  ``SafeClick`` tem uma responsabilidade bem definida: controlar a frequência com que uma ação pode ser executada.
+* **Reuso por composição**:
+  Qualquer componente de UI pode compor-se com um ``SafeClick`` para ganhar esse comportamento, sem herança nem duplicação de código.
+* **Encapsulamento de detalhes concorrentes**:
+  Uso de ``AtomicBoolean`` e coroutines fica escondido atrás da interface simples ``Create(...)``, protegendo o restante do código desses detalhes.
+
+Possíveis Melhorias OO
+----------------------
+
+* **Interface de estratégia de clique**:
+  Criar uma interface (por exemplo, ``ClickStrategy``) e deixar ``SafeClick`` como uma entre várias estratégias possíveis (sem debounce, debounce curto, debounce longo), selecionáveis em tempo de execução.
+* **Configuração externa**:
+  Receber o ``CoroutineScope`` por parâmetro ou via injeção, em vez de criar um `CoroutineScope(Dispatchers.Main)` interno, facilitando testes e reutilização em outros contextos.
+* **Imutabilidade da configuração**:
+  Transformar ``delayMillis`` em uma propriedade imutável de instância (passado no construtor) para representar claramente um \"tipo\" de clique seguro com configuração fixa.

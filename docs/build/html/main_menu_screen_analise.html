@@ -1,41 +1,99 @@
 <!DOCTYPE html>
+<html class="writer-html5" lang="br" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<html lang="br" data-content_root="./">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise do Componente: MainMenuScreen.kt &mdash; RedWire v1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
-    <title>Análise do Componente: MainMenuScreen.kt &#8212; RedWire v1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=47202671" />
-    <link rel="stylesheet" type="text/css" href="_static/haiku.css?v=fce32b03" />
-    <script src="_static/documentation_options.js?v=39d51604"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=39d51604"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Análise do Componente: GameScreen.kt" href="game_screen_analise.html" />
-    <link rel="prev" title="Estrutura de Arquivos do Projeto" href="estrutura_projeto.html" /> 
-  </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>RedWire v1.0 documentation</span></a></h1>
-        <h2 class="heading"><span>Análise do Componente: MainMenuScreen.kt</span></h2>
-      </div>
-      <div class="topnav" role="navigation" aria-label="Top">
-      
-        <p>
-        «&#160;&#160;<a href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a>&#160;&#160;»
-        </p>
+    <link rel="prev" title="Análise do Componente: MainActivity.kt" href="main_activity_ui_analise.html" /> 
+</head>
 
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RedWire
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tópicos da Documentação:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Análise do Componente: MainMenuScreen.kt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#funcao-create-entrada-da-tela">Função Create (Entrada da Tela)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gerenciamento-de-navegacao-selecao-de-dificuldade">Gerenciamento de Navegação (Seleção de Dificuldade)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enfoque-em-orientacao-a-objetos">Enfoque em Orientação a Objetos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#possiveis-melhorias-oo">Possíveis Melhorias OO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="campominadogrid_analise.html">Análise do Componente: CampoMinadoGrid.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_celula_analise.html">Análise do Modelo: Celula.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_calculo_analise.html">Análise do Utilitário: Calculo.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_soundmanager_analise.html">Análise do Utilitário: SoundManager.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_safeclick_analise.html">Análise do Componente: SafeClick.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_analise.html">Análise do Componente: Theme.kt (Implementação do Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_type_analise.html">Análise do Componente: Type.kt (Tipografia)</a></li>
+</ul>
+
+        </div>
       </div>
-      <div class="content" role="main">
-        
-        
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RedWire</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Análise do Componente: MainMenuScreen.kt</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/main_menu_screen_analise.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <section id="analise-do-componente-mainmenuscreen-kt">
-<h1>Análise do Componente: MainMenuScreen.kt<a class="headerlink" href="#analise-do-componente-mainmenuscreen-kt" title="Link to this heading">¶</a></h1>
+<h1>Análise do Componente: MainMenuScreen.kt<a class="headerlink" href="#analise-do-componente-mainmenuscreen-kt" title="Link to this heading"></a></h1>
 <p>O arquivo <code class="file docutils literal notranslate"><span class="pre">MainMenuScreen.kt</span></code> define a tela inicial da aplicação. Sua responsabilidade é clara: receber o usuário, exibir o título do jogo e permitir a seleção do modo de dificuldade, que desencadeia a navegação para a partida.</p>
 <div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">internal</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MainMenuScreen</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// ...</span>
@@ -48,7 +106,7 @@
 <li><p><strong>Função</strong>: Apresentar as opções de dificuldade e orquestrar o início do jogo.</p></li>
 </ul>
 <section id="funcao-create-entrada-da-tela">
-<h2>Função Create (Entrada da Tela)<a class="headerlink" href="#funcao-create-entrada-da-tela" title="Link to this heading">¶</a></h2>
+<h2>Função Create (Entrada da Tela)<a class="headerlink" href="#funcao-create-entrada-da-tela" title="Link to this heading"></a></h2>
 <p>A função <strong>``Create``</strong> é o ponto de montagem do Composable, recebendo o controlador de navegação necessário para as transições de tela.</p>
 <div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">Create</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -73,13 +131,11 @@
 </ul>
 </section>
 <section id="gerenciamento-de-navegacao-selecao-de-dificuldade">
-<h2>Gerenciamento de Navegação (Seleção de Dificuldade)<a class="headerlink" href="#gerenciamento-de-navegacao-selecao-de-dificuldade" title="Link to this heading">¶</a></h2>
+<h2>Gerenciamento de Navegação (Seleção de Dificuldade)<a class="headerlink" href="#gerenciamento-de-navegacao-selecao-de-dificuldade" title="Link to this heading"></a></h2>
 <p>A lógica de navegação utiliza o objeto <strong>``NavController``</strong> para transicionar para a tela de jogo, sendo um excelente exemplo de <strong>passagem de dados através da rota</strong>.</p>
 <ul class="simple">
 <li><dl class="simple">
-<dt><strong>Botões de Dificuldade</strong>:</dt><dd><ul>
-<li><p>A função <code class="docutils literal notranslate"><span class="pre">ui.CreateButton</span></code> é usada para criar três botões, um para cada nível de dificuldade: Fácil, Médio e Difícil.</p></li>
-</ul>
+<dt><strong>Botões de Dificuldade</strong>:</dt><dd><p>A função <code class="docutils literal notranslate"><span class="pre">ui.CreateButton</span></code> é usada para criar três botões, um para cada nível de dificuldade: Fácil, Médio e Difícil.</p>
 </dd>
 </dl>
 </li>
@@ -97,25 +153,59 @@
 </div>
 <p>Essa implementação assume que o <strong>``NavHost``</strong> está configurado para reconhecer a rota <code class="docutils literal notranslate"><span class="pre">&quot;game/{mode}&quot;</span></code> e injetar o valor de <cite>{mode}</cite> (easy, medium, hard) como argumento para a tela de destino (<code class="file docutils literal notranslate"><span class="pre">GameScreen.kt</span></code>), que o recebe no seu parâmetro <cite>mode</cite>.</p>
 </section>
+<section id="enfoque-em-orientacao-a-objetos">
+<h2>Enfoque em Orientação a Objetos<a class="headerlink" href="#enfoque-em-orientacao-a-objetos" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Encapsulamento da tela</strong>: <code class="docutils literal notranslate"><span class="pre">MainMenuScreen</span></code> agrupa em uma única classe toda a lógica visual e de interação do menu, expondo apenas o método composable <code class="docutils literal notranslate"><span class="pre">Create</span></code>.</p></li>
+<li><p><strong>Composição de objetos</strong>:
+Utiliza <code class="docutils literal notranslate"><span class="pre">ComponentesUI</span></code> para criar botões e título, evitando duplicação de código visual.
+Depende de um <code class="docutils literal notranslate"><span class="pre">NavController</span></code> para executar navegação, sem conhecer detalhes internos de como a navegação é implementada.</p></li>
+<li><p><strong>Baixo acoplamento com a lógica de jogo</strong>:
+A tela apenas envia o parâmetro de dificuldade na rota; quem interpreta o parâmetro é a tela de jogo (<cite>GameScreen</cite>), mantendo responsabilidades bem separadas.</p></li>
+</ul>
+</section>
+<section id="possiveis-melhorias-oo">
+<h2>Possíveis Melhorias OO<a class="headerlink" href="#possiveis-melhorias-oo" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Separar modelo de configuração de modos</strong>:
+Criar um modelo (por exemplo, <code class="docutils literal notranslate"><span class="pre">GameMode</span></code>) que represente as opções de dificuldade, em vez de strings literais (<cite>&quot;easy&quot;</cite>, <cite>&quot;medium&quot;</cite>, <cite>&quot;hard&quot;</cite>), reduzindo risco de erro de digitação e centralizando regras de cada modo.</p></li>
+<li><p><strong>Desacoplar navegação de string de rota</strong>:
+Introduzir um objeto de rotas ou um serviço (por exemplo, <code class="docutils literal notranslate"><span class="pre">GameNavigator</span></code>) responsável por construir as rotas (<cite>toGame(mode)</cite>), para que a tela apenas invoque métodos fortemente tipados.</p></li>
+<li><p><strong>Configurar ações como dependências</strong>:
+Em vez de chamar <code class="docutils literal notranslate"><span class="pre">navController.navigate(...)</span></code> diretamente, receber lambdas ou interfaces que representem ações de &quot;começar jogo fácil/médio/difícil&quot;, o que facilita testes unitários da tela sem precisar de um <code class="docutils literal notranslate"><span class="pre">NavController</span></code> real.</p></li>
+</ul>
+</section>
 </section>
 
 
-      </div>
-      <div class="bottomnav" role="navigation" aria-label="Bottom">
-      
-        <p>
-        «&#160;&#160;<a href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a>&#160;&#160;»
-        </p>
-
-      </div>
-
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2025, Caio Silva E Carlos Vergílio.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="main_activity_ui_analise.html" class="btn btn-neutral float-left" title="Análise do Componente: MainActivity.kt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="game_screen_analise.html" class="btn btn-neutral float-right" title="Análise do Componente: GameScreen.kt" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  </body>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Caio Silva E Carlos Vergílio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

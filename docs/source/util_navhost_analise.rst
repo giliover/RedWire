@@ -53,3 +53,23 @@ O grafo de navegação é composto por dois destinos principais definidos pela d
     * **Ação**: Instancia e chama a função ``Create`` da classe **``GameScreen``**, passando o ``navController`` e o argumento ``mode`` extraído.
 
 **Princípio da Orientação a Objetos (OO)**: A classe ``NavHost`` serve como um **Controlador** (Controller) que gerencia o fluxo de trabalho (Work Flow), instanciando e orquestrando as classes de UI (**``MainMenuScreen``** e **``GameScreen``**) e garantindo que cada tela receba o contexto de navegação necessário.
+
+Enfoque em Orientação a Objetos
+-------------------------------
+
+* **Controlador dedicado**:
+  ``NavHost`` centraliza o grafo de navegação, desempenhando o papel de um *controller* responsável apenas pelo fluxo entre objetos de tela.
+* **Composição de telas**:
+  Em vez de usar instruções condicionais espalhadas, a navegação é declarativa e organizada em destinos (`\"mainmenu\"`, `\"game/{mode}\"`) que instanciam objetos de tela específicos.
+* **Isolamento de responsabilidades**:
+  A Activity principal não precisa conhecer detalhes de rotas ou de como cada tela é criada; ela apenas invoca ``NavHost.Create()``.
+
+Possíveis Melhorias OO
+----------------------
+
+* **Extração de um contrato de navegação**:
+  Definir uma interface (por exemplo, ``NavigationGraph``) que descreva como os destinos são registrados, permitindo que diferentes implementações coexistam (debug, testes, multi-module).
+* **Separar construção de telas da definição de rotas**:
+  Introduzir fábricas de telas (por exemplo, ``MainMenuScreenFactory``, ``GameScreenFactory``) para construir instâncias, deixando o grafo responsável apenas por encadear destinos.
+* **Configuração tipada de argumentos**:
+  Em vez de usar strings para parâmetros (`\"mode\"`), utilizar classes de argumento ou wrappers (por exemplo, ``GameDestination(mode: GameMode)``) para aumentar a segurança de tipos.

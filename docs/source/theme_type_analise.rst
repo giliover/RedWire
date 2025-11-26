@@ -46,3 +46,19 @@ Benefício
 -----------
 
 Ao centralizar a tipografia em um objeto **``Typography``**, a aplicação garante que todos os componentes que utilizam estilos do tema (ex: `MaterialTheme.typography.bodyLarge`) herdem a mesma configuração, mantendo a consistência do design visual. Os estilos não sobrescritos (como `titleLarge` ou `labelSmall`) mantêm seus valores padrão do Material Design.
+
+Enfoque em Orientação a Objetos
+-------------------------------
+
+* **Objeto único de configuração tipográfica**:
+  O ``val Typography`` age como um \"objeto de configuração\" que agrupa estilos relacionados.
+* **Reuso via composição**:
+  Componentes de UI não conhecem detalhes de fontes ou espaçamentos; apenas pedem estilos a ``MaterialTheme.typography``, que usa esse objeto.
+
+Possíveis Melhorias OO
+----------------------
+
+* **Modelar estilos como tipos nomeados**:
+  Criar aliases ou wrappers para alguns estilos (por exemplo, `TitleText`, `BodyText`) que expressem a intenção de uso, não apenas a propriedade visual.
+* **Desacoplar de Compose em nível de domínio**:
+  Em um projeto maior, manter uma camada de modelos de tipografia independente do framework (por exemplo, uma representação própria de fontes e tamanhos) e apenas mapear para `TextStyle` em um adaptador específico de UI.

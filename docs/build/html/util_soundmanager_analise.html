@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="br" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise do Utilitário: SoundManager.kt &mdash; RedWire v1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=39d51604"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Análise do Componente: NavHost.kt" href="util_navhost_analise.html" />
+    <link rel="prev" title="Análise do Utilitário: Calculo.kt" href="util_calculo_analise.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RedWire
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tópicos da Documentação:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="estrutura_projeto.html">Estrutura de Arquivos do Projeto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_activity_ui_analise.html">Análise do Componente: MainActivity.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_menu_screen_analise.html">Análise do Componente: MainMenuScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game_screen_analise.html">Análise do Componente: GameScreen.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="componentes_ui_analise.html">Análise do Componente: ComponentesUI.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="campominadogrid_analise.html">Análise do Componente: CampoMinadoGrid.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_celula_analise.html">Análise do Modelo: Celula.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_calculo_analise.html">Análise do Utilitário: Calculo.kt</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Análise do Utilitário: SoundManager.kt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#visao-geral">Visão Geral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#controle-da-musica-de-fundo">Controle da Música de Fundo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#efeito-sonoro-da-bomba">Efeito Sonoro da Bomba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#liberacao-de-recursos">Liberação de Recursos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integracao-com-compose-remembersoundmanager">Integração com Compose: rememberSoundManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enfoque-em-orientacao-a-objetos">Enfoque em Orientação a Objetos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#possiveis-melhorias-oo">Possíveis Melhorias OO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="util_navhost_analise.html">Análise do Componente: NavHost.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util_safeclick_analise.html">Análise do Componente: SafeClick.kt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_analise.html">Análise do Componente: Theme.kt (Implementação do Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_color_analise.html">Análise do Componente: Color.kt (Tema)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theme_type_analise.html">Análise do Componente: Type.kt (Tipografia)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RedWire</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Análise do Utilitário: SoundManager.kt</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/util_soundmanager_analise.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="analise-do-utilitario-soundmanager-kt">
+<h1>Análise do Utilitário: SoundManager.kt<a class="headerlink" href="#analise-do-utilitario-soundmanager-kt" title="Link to this heading"></a></h1>
+<p>O arquivo <code class="file docutils literal notranslate"><span class="pre">SoundManager.kt</span></code>, no pacote <code class="docutils literal notranslate"><span class="pre">com.example.campominado.util</span></code>,
+encapsula toda a lógica de <strong>áudio</strong> do aplicativo, incluindo música de fundo e
+efeitos sonoros (como o som da bomba).</p>
+<section id="visao-geral">
+<h2>Visão Geral<a class="headerlink" href="#visao-geral" title="Link to this heading"></a></h2>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nc">SoundManager</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">context</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">backgroundMusic</span><span class="p">:</span><span class="w"> </span><span class="n">MediaPlayer? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">bombSound</span><span class="p">:</span><span class="w"> </span><span class="n">MediaPlayer? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">playBackgroundMusic</span><span class="p">(</span><span class="n">resourceId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">stopBackgroundMusic</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">playBombSound</span><span class="p">(</span><span class="n">resourceId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">release</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Responsabilidade</strong>: Controlar o ciclo de vida dos objetos <code class="docutils literal notranslate"><span class="pre">MediaPlayer</span></code>.</p></li>
+<li><p><strong>Contexto</strong>: Recebe um <code class="docutils literal notranslate"><span class="pre">Context</span></code> Android para conseguir carregar recursos
+de áudio via <cite>MediaPlayer.create</cite>.</p></li>
+</ul>
+</section>
+<section id="controle-da-musica-de-fundo">
+<h2>Controle da Música de Fundo<a class="headerlink" href="#controle-da-musica-de-fundo" title="Link to this heading"></a></h2>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">fun</span><span class="w"> </span><span class="nf">playBackgroundMusic</span><span class="p">(</span><span class="n">resourceId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">stopBackgroundMusic</span><span class="p">()</span>
+<span class="w">        </span><span class="n">backgroundMusic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MediaPlayer</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">resourceId</span><span class="p">)</span>
+<span class="w">        </span><span class="n">backgroundMusic</span><span class="o">?.</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">isLooping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">            </span><span class="n">setVolume</span><span class="p">(</span><span class="m">0.5f</span><span class="p">,</span><span class="w"> </span><span class="m">0.5f</span><span class="p">)</span>
+<span class="w">            </span><span class="n">start</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">stopBackgroundMusic</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">backgroundMusic</span><span class="o">?.</span><span class="na">release</span><span class="p">()</span>
+<span class="w">    </span><span class="n">backgroundMusic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Substituição Segura</strong>: Sempre chama <cite>stopBackgroundMusic()</cite> antes de iniciar
+uma nova música, evitando múltiplos <cite>MediaPlayer</cite> ativos.</p></li>
+<li><p><strong>Loop Contínuo</strong>: Ativa <cite>isLooping = true</cite> para que a trilha toque em ciclo.</p></li>
+<li><p><strong>Volume Padronizado</strong>: Define um volume médio (0.5f) para não sobrepor a UI.</p></li>
+</ul>
+</section>
+<section id="efeito-sonoro-da-bomba">
+<h2>Efeito Sonoro da Bomba<a class="headerlink" href="#efeito-sonoro-da-bomba" title="Link to this heading"></a></h2>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">fun</span><span class="w"> </span><span class="nf">playBombSound</span><span class="p">(</span><span class="n">resourceId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">bombSound</span><span class="o">?.</span><span class="na">release</span><span class="p">()</span>
+<span class="w">        </span><span class="n">bombSound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MediaPlayer</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">resourceId</span><span class="p">)</span>
+<span class="w">        </span><span class="n">bombSound</span><span class="o">?.</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">setVolume</span><span class="p">(</span><span class="m">1.0f</span><span class="p">,</span><span class="w"> </span><span class="m">1.0f</span><span class="p">)</span>
+<span class="w">            </span><span class="n">start</span><span class="p">()</span>
+<span class="w">            </span><span class="n">setOnCompletionListener</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nb">it</span><span class="p">.</span><span class="na">release</span><span class="p">()</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Som de Curta Duração</strong>: Cria um novo <cite>MediaPlayer</cite> para cada explosão.</p></li>
+<li><p><strong>Liberação Automática</strong>: Usa <cite>setOnCompletionListener</cite> para liberar o
+recurso após o término do som.</p></li>
+</ul>
+</section>
+<section id="liberacao-de-recursos">
+<h2>Liberação de Recursos<a class="headerlink" href="#liberacao-de-recursos" title="Link to this heading"></a></h2>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="kd">fun</span><span class="w"> </span><span class="nf">release</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">stopBackgroundMusic</span><span class="p">()</span>
+<span class="w">    </span><span class="n">bombSound</span><span class="o">?.</span><span class="na">release</span><span class="p">()</span>
+<span class="w">    </span><span class="n">bombSound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Boas Práticas Android</strong>: Evita <em>memory leaks</em> e uso indevido de recursos
+de mídia, liberando tudo quando a tela é destruída.</p></li>
+</ul>
+</section>
+<section id="integracao-com-compose-remembersoundmanager">
+<h2>Integração com Compose: rememberSoundManager<a class="headerlink" href="#integracao-com-compose-remembersoundmanager" title="Link to this heading"></a></h2>
+<p>Além da classe principal, o arquivo define um helper composable:</p>
+<div class="highlight-kotlin notranslate"><div class="highlight"><pre><span></span><span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">rememberSoundManager</span><span class="p">():</span><span class="w"> </span><span class="n">SoundManager</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalContext</span><span class="p">.</span><span class="na">current</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">soundManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">remember</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">SoundManager</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">DisposableEffect</span><span class="p">(</span><span class="n">soundManager</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">onDispose</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">soundManager</span><span class="p">.</span><span class="na">release</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">soundManager</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Integração com o Ciclo de Vida Compose</strong>: <cite>remember</cite> garante uma única instância de <code class="docutils literal notranslate"><span class="pre">SoundManager</span></code> por composição e <cite>DisposableEffect</cite> chama <cite>release()</cite> automaticamente quando o Composable sai de cena.</p></li>
+<li><p><strong>Uso nas Telas</strong>: telas como <code class="docutils literal notranslate"><span class="pre">MainMenuScreen</span></code> e <code class="docutils literal notranslate"><span class="pre">GameScreen</span></code> apenas chamam <cite>rememberSoundManager()</cite> para obter uma instância pronta para uso, mantendo a UI desacoplada dos detalhes de áudio.</p></li>
+</ul>
+</section>
+<section id="enfoque-em-orientacao-a-objetos">
+<h2>Enfoque em Orientação a Objetos<a class="headerlink" href="#enfoque-em-orientacao-a-objetos" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Classe de serviço</strong>: <code class="docutils literal notranslate"><span class="pre">SoundManager</span></code> encapsula todo o comportamento relacionado a áudio (música de fundo e efeitos), aplicando <strong>responsabilidade única</strong>.</p></li>
+<li><p><strong>Composição com a UI</strong>: as telas não precisam conhecer <code class="docutils literal notranslate"><span class="pre">MediaPlayer</span></code> nem detalhes de ciclo de vida; elas compõem seu comportamento com um objeto de som de alto nível.</p></li>
+<li><p><strong>Gerenciamento de recursos como comportamento de objeto</strong>: métodos como <code class="docutils literal notranslate"><span class="pre">playBackgroundMusic</span></code>, <code class="docutils literal notranslate"><span class="pre">stopBackgroundMusic</span></code> e <code class="docutils literal notranslate"><span class="pre">release</span></code> traduzem operações de baixo nível em uma interface OO expressiva.</p></li>
+</ul>
+</section>
+<section id="possiveis-melhorias-oo">
+<h2>Possíveis Melhorias OO<a class="headerlink" href="#possiveis-melhorias-oo" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Interface de áudio</strong>: definir uma interface (por exemplo, <code class="docutils literal notranslate"><span class="pre">SoundPlayer</span></code>) que <code class="docutils literal notranslate"><span class="pre">SoundManager</span></code> implementa, permitindo substituição por implementações falsas (fake) em testes ou por outras bibliotecas de áudio no futuro.</p></li>
+<li><p><strong>Separar responsabilidades de trilha e efeitos</strong>: dividir em duas classes (<cite>BackgroundMusicManager</cite>, <cite>EffectsPlayer</cite>) quando a lógica crescer, mantendo a coesão.</p></li>
+<li><p><strong>Configuração orientada a objetos</strong>: encapsular parâmetros como volume padrão, estratégia de repetição e priorização de sons em um objeto de configuração (<cite>SoundConfig</cite>) passado ao construtor.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="util_calculo_analise.html" class="btn btn-neutral float-left" title="Análise do Utilitário: Calculo.kt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="util_navhost_analise.html" class="btn btn-neutral float-right" title="Análise do Componente: NavHost.kt" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Caio Silva E Carlos Vergílio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

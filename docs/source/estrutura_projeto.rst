@@ -6,46 +6,47 @@ O projeto *REDWIRE* (Campo Minado) segue a estrutura padrão de projetos Android
 
 ::
 
-.
-    ├── app/
-    │   └── src/
-    │       └── main/
-    │           ├── java/
-    │           │   └── com/example/campominado/
-    │           │       ├── model/  <-- LÓGICA DE NEGÓCIO (OO)
-    │           │       │   └── Celula.kt
-    │           │       ├── ui/
-    │           │       │   ├── screens/
-    │           │       │   │   ├── CampoMinadoGrid.kt
-    │           │       │   │   ├── ComponentesUI.kt
-    │           │       │   │   ├── GameScreen.kt
-    │           │       │   │   └── MainMenuScreen.kt
-    │           │       │   ├── theme/
-    │           │       │   │   ├── Color.kt
-    │           │       │   │   ├── Theme.kt
-    │           │       │   │   └── Type.kt
-    │           │       │   └── utils/
-    │           │       │       └── SafeClick.kt
-    │           │       └── MainActivity.kt
-    │           ├── res/
-    │           └── AndroidManifest.xml
-    └── ... (arquivos de configuração como .gradle, build.gradle.kts, etc.)
+    .
+        ├── app/
+        │   └── src/
+        │       └── main/
+        │           ├── java/
+        │           │   └── com/example/campominado/
+        │           │       ├── model/  <-- LÓGICA DE NEGÓCIO (OO)
+        │           │       │   └── Celula.kt
+        │           │       ├── ui/
+        │           │       │   ├── screens/
+        │           │       │   │   ├── CampoMinadoGrid.kt
+        │           │       │   │   ├── ComponentesUI.kt
+        │           │       │   │   ├── GameScreen.kt
+        │           │       │   │   └── MainMenuScreen.kt
+        │           │       │   ├── theme/
+        │           │       │   │   ├── Color.kt
+        │           │       │   │   ├── Theme.kt
+        │           │       │   │   └── Type.kt
+        │           │       │   └── utils/
+        │           │       │       └── SafeClick.kt
+        │           │       └── MainActivity.kt
+        │           ├── res/
+        │           └── AndroidManifest.xml
+        └── ... (arquivos de configuração como .gradle, build.gradle.kts, etc.)
+
 Conteúdo Principal (``app/src/main/java/com/example/campominado/``)
 -------------------------------------------------------------------
 
 Este pacote contém o código-fonte principal em **Kotlin**, organizado em subdiretórios lógicos:
 
 * :file:`MainActivity.kt`:
-    O ponto de entrada principal da aplicação Android. Geralmente, inicializa a interface do usuário e pode orquestrar a navegação.
+  O ponto de entrada principal da aplicação Android. Geralmente, inicializa a interface do usuário e pode orquestrar a navegação.
 * :file:`model/`:
-    Pacote de **Domínio/Lógica de Negócio**, contendo as classes fundamentais da Orientação a Objetos do jogo.
-    * :file:`Celula.kt`: Representa a unidade básica do Campo Minado (a célula, com estado e conteúdo).
+  Pacote de **Domínio/Lógica de Negócio**, contendo as classes fundamentais da Orientação a Objetos do jogo.
+  * :file:`Celula.kt`: Representa a unidade básica do Campo Minado (a célula, com estado e conteúdo).
 * :file:`ui/`:
-    Contém a lógica e a definição de componentes relacionados à **Interface do Usuário (UI)**.
+  Contém a lógica e a definição de componentes relacionados à **Interface do Usuário (UI)**.
 * :file:`theme/`:
-    Inclui arquivos de tema e estilo, como :file:`Color.kt` e :file:`Type.kt`, para padronização visual da aplicação.
+  Inclui arquivos de tema e estilo, como :file:`Color.kt` e :file:`Type.kt`, para padronização visual da aplicação.
 * :file:`utils/`:
-    Armazena classes e funções auxiliares que não se encaixam nas categorias de UI ou *Domain* (Lógica de Negócio, que presumivelmente estaria em um pacote separado se a arquitetura fosse mais complexa, ou estaria implementada dentro de outras classes).
+  Armazena classes e funções auxiliares que não se encaixam nas categorias de UI ou *Domain* (Lógica de Negócio, que presumivelmente estaria em um pacote separado se a arquitetura fosse mais complexa, ou estaria implementada dentro de outras classes).
 
 Pacote ``ui/screens/``
 -----------------------
@@ -53,20 +54,49 @@ Pacote ``ui/screens/``
 A organização em *screens* sugere uma abordagem moderna de UI (possivelmente utilizando **Jetpack Compose**), onde a interface é dividida em componentes de tela distintos:
 
 * :file:`MainMenuScreen.kt`:
-    Define a tela principal do menu do jogo (iniciar novo jogo, opções, etc.).
+  Define a tela principal do menu do jogo (iniciar novo jogo, opções, etc.).
 * :file:`GameScreen.kt`:
-    Define a tela onde o jogo Campo Minado é jogado. Espera-se que esta tela interaja com a **lógica de jogo orientada a objetos**.
+  Define a tela onde o jogo Campo Minado é jogado. Espera-se que esta tela interaja com a **lógica de jogo orientada a objetos**.
 * :file:`ComponentesUI.kt`:
-    Pode conter componentes de UI reutilizáveis, como botões, células do campo minado, ou diálogos.
+  Pode conter componentes de UI reutilizáveis, como botões, células do campo minado, ou diálogos.
 * :file:`CampoMinadoGrid.kt`:
-    Presumivelmente o componente de UI responsável por renderizar o tabuleiro (a grade de células) e interagir com a lógica do **``model``**.
+  Presumivelmente o componente de UI responsável por renderizar o tabuleiro (a grade de células) e interagir com a lógica do **``model``**.
 
 Pacote ``res/`` (Recursos)
 --------------------------
 
 * :file:`drawable/`:
-    Recursos visuais (ícones, imagens).
+  Recursos visuais (ícones, imagens).
 * :file:`values/`:
-    Definições de cores, *strings* de texto, e estilos.
+  Definições de cores, *strings* de texto, e estilos.
 * :file:`xml/`:
-    Arquivos de configuração ou recursos em formato XML.
+  Arquivos de configuração ou recursos em formato XML.
+
+Enfoque em Orientação a Objetos na Estrutura
+--------------------------------------------
+
+A estrutura do projeto já reforça alguns princípios centrais de OO:
+
+* **Separação de responsabilidades por pacote**:
+  ``model/`` concentra o **modelo de domínio** (como ``Celula``).
+  ``ui/screens/`` contém as **telas e componentes visuais**.
+  ``ui/theme/`` encapsula **detalhes de estilo** (cores, tipografia e tema).
+  ``util/`` agrega **serviços de apoio** (navegação, clique seguro, som, cálculos).
+* **Composição sobre herança**:
+  As telas compõem objetos como ``ComponentesUI``, ``NavHost`` e serviços de utilidade, em vez de duplicar código.
+* **Encapsulamento**:
+  Classes ``internal`` limitam a visibilidade ao módulo, reduzindo o acoplamento externo.
+
+Possíveis Melhorias para Fortalecer o Paradigma OO
+--------------------------------------------------
+
+* **Camada de domínio explícita**:
+  Criar um pacote dedicado (por exemplo, ``domain/``) para classes como ``Celula`` e ``Calculo``, deixando claro o núcleo de regras de negócio.
+* **Serviços de aplicação**:
+  Introduzir serviços como ``GameService`` ou ``GameSession`` para orquestrar regras (iniciar jogo, checar vitória/derrota), evitando que telas chamem diretamente utilitários estáticos.
+* **Interfaces e inversão de dependência**:
+  Definir contratos como ``ISoundPlayer``, ``INavigation`` ou ``IBoardCalculator`` e depender dessas interfaces em telas, facilitando testes e futuras trocas de implementação.
+* **Módulos separados**:
+  Em projetos maiores, separar o módulo Android (UI) de um módulo puro Kotlin (domínio e regras) reforça a independência da lógica de negócio em relação ao framework.
+
+
