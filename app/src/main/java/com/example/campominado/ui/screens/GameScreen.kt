@@ -29,6 +29,7 @@ internal class GameScreen {
         }
 
         val campo = remember { mutableStateOf(Calculo.gerarTabuleiro(linhas, colunas, totalBombas)) }
+        val jogoIniciado = remember { mutableStateOf(false) }
         val gameOver = remember { mutableStateOf(false) }
         
         // Inicia a música de fundo quando o jogo começa
@@ -52,47 +53,63 @@ internal class GameScreen {
                             else -> Color.Gray
                         }
 
-                        Box(
-                            modifier = Modifier
-                                .size(40.dp)
-                                .padding(2.dp)
-                                .background(backgroundColor)
-                                .combinedClickable(
-                                    onClick = {
-                                        if (gameOver.value) return@combinedClickable
+                            Box(
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .padding(2.dp)
+                                    .background(backgroundColor)
+                                    .combinedClickable(
+                                        onClick = {
+                                            if (gameOver.value) return@combinedClickable
 
-                                        if (!celula.temMina.value) {
-                                            Calculo.revelarCelula(celula, campo.value)
-                                        } else {
-                                            // Toca som de bomba quando explode
-                                            try {
-                                                soundManager.playBombSound(R.raw.bomb_explosion)
-                                            } catch (e: Exception) {
-                                                println("Som de bomba não encontrado: ${e.message}")
+                                            // Se é o primeiro clique, gera o tabuleiro excluindo esta célula
+                                            if (!jogoIniciado.value) {
+                                                campo.value = Calculo.gerarTabuleiro(
+                                                    linhas, 
+                                                    colunas, 
+                                                    totalBombas, 
+                                                    excluirCelula = celula
+                                                )
+                                                jogoIniciado.value = true
+                                                // Revela a célula clicada após gerar o tabuleiro
+                                                val celulaGerada = campo.value[celula.linha][celula.coluna]
+                                                Calculo.revelarCelula(celulaGerada, campo.value)
+                                            } else {
+                                                // Cliques subsequentes
+                                                if (!celula.temMina.value) {
+                                                    Calculo.revelarCelula(celula, campo.value)
+                                                } else {
+                                                    // Toca som de bomba quando explode
+                                                    try {
+                                                        soundManager.playBombSound(R.raw.bomb_explosion)
+                                                    } catch (e: Exception) {
+                                                        println("Som de bomba não encontrado: ${e.message}")
+                                                    }
+                                                    Calculo.revelarTudo(campo.value)
+                                                    gameOver.value = true
+                                                    soundManager.stopBackgroundMusic()
+                                                    println("💣 Game Over!")
+                                                }
                                             }
-                                            Calculo.revelarTudo(campo.value)
-                                            gameOver.value = true
-                                            soundManager.stopBackgroundMusic()
-                                            println("💣 Game Over!")
+                                        },
+                                        onLongClick = {
+                                            if (!celula.revelada.value && !gameOver.value && jogoIniciado.value) {
+                                                celula.marcada.value = !celula.marcada.value
+                                            }
                                         }
+                                    ),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = when {
+                                        celula.revelada.value && !celula.temMina.value && celula.valor > 0 -> celula.valor.toString()
+                                        celula.revelada.value && celula.temMina.value -> "💣"
+                                        celula.marcada.value -> "🚩"
+                                        else -> ""
                                     },
-                                    onLongClick = {
-                                        if (!celula.revelada.value && !gameOver.value) {
-                                            celula.marcada.value = !celula.marcada.value
-                                        }
-                                    }
-                                ),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = when {
-                                    celula.revelada.value && !celula.temMina.value && celula.valor > 0 -> celula.valor.toString()
-                                    celula.revelada.value && celula.temMina.value -> "💣"
-                                    celula.marcada.value -> "🚩"
-                                    else -> ""
-                                },
-                                fontSize = 16.sp
-                            )
+                                    fontSize = 16.sp
+                                )
+
                         }
                     }
                 }

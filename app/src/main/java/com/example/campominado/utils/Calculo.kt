@@ -8,7 +8,8 @@ object Calculo {
     fun gerarTabuleiro(
         linhas: Int,
         colunas: Int,
-        totalBombas: Int
+        totalBombas: Int,
+        excluirCelula: Celula? = null
     ): List<MutableList<Celula>> {
         val campo = List(linhas) { linha ->
             MutableList(colunas) { coluna ->
@@ -16,13 +17,20 @@ object Calculo {
             }
         }
 
-        // posiciona as bombas aleatoriamente
+        // posiciona as bombas aleatoriamente, excluindo a célula do primeiro clique
         var bombasColocadas = 0
         while (bombasColocadas < totalBombas) {
             val i = Random.nextInt(linhas)
             val j = Random.nextInt(colunas)
             val celula = campo[i][j]
-            if (!celula.temMina.value) {
+            
+            val deveExcluir = excluirCelula != null && (
+                (i == excluirCelula.linha && j == excluirCelula.coluna) ||
+                (kotlin.math.abs(i - excluirCelula.linha) <= 1 && 
+                 kotlin.math.abs(j - excluirCelula.coluna) <= 1)
+            )
+            
+            if (!celula.temMina.value && !deveExcluir) {
                 celula.temMina.value = true
                 bombasColocadas++
             }
