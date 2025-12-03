@@ -87,9 +87,9 @@ internal class GameScreen {
         }
 
         val onCellClick: (Celula) -> Unit = { celula ->
-            if (gameOver.value || vitoria.value) return@let
-
-            if (!jogoIniciado.value) {
+            if (gameOver.value || vitoria.value) {
+                // jogo já terminou, ignora cliques
+            } else if (!jogoIniciado.value) {
                 campo.value = Calculo.gerarTabuleiro(
                     linhas,
                     colunas,
@@ -263,7 +263,6 @@ internal class GameScreen {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                ui.CreateTitle("Modo de jogo: $mode")
                 Spacer(modifier = Modifier.height(16.dp))
                 Play(navController, mode)
                 Spacer(modifier = Modifier.height(16.dp))

@@ -2,9 +2,9 @@ package com.example.campominado.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,35 +13,71 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.shape.RoundedCornerShape
 import com.example.campominado.R
 import com.example.campominado.util.SafeClick
 
 internal class ComponentesUI {
 
-    // 🔹 Título padrão
+    // 🔹 Título padrão (usado, por exemplo, no menu principal)
     @Composable
     fun CreateTitle(text: String) {
         Text(
             text = text,
             style = MaterialTheme.typography.headlineLarge.copy(
-                fontWeight = FontWeight.Bold,
-                fontSize = 32.sp
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 40.sp
             ),
             color = MaterialTheme.colorScheme.primary
         )
     }
 
-    // 🔹 Botão com clique seguro
+    // 🔹 Subtítulo opcional (por exemplo, "Campo Minado")
+    @Composable
+    fun CreateSubtitle(text: String) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Medium,
+                fontSize = 18.sp
+            ),
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.85f)
+        )
+    }
+
+    // 🔹 Botão com clique seguro e visual mais moderno
     @Composable
     fun CreateButton(text: String, onClick: () -> Unit) {
         val safeClick = SafeClick()
-        Button(onClick = safeClick.Create() { onClick() }) {
-            Text(text)
+
+        Button(
+            onClick = safeClick.Create() { onClick() },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
+            shape = RoundedCornerShape(28.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ),
+            elevation = ButtonDefaults.buttonElevation(
+                defaultElevation = 6.dp,
+                pressedElevation = 2.dp
+            )
+        ) {
+            Text(
+                text = text,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 18.sp
+                )
+            )
         }
     }
 
-    // 🔹 NOVO: Fundo reutilizável com imagem
+    // 🔹 Fundo reutilizável com imagem
     @Composable
     fun CreateBackground(
         modifier: Modifier = Modifier,
