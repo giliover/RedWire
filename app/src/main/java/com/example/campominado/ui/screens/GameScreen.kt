@@ -86,141 +86,170 @@ internal class GameScreen {
             }
         }
 
+        val onCellClick: (Celula) -> Unit = { celula ->
+            if (gameOver.value || vitoria.value) return@let
+
+            if (!jogoIniciado.value) {
+                campo.value = Calculo.gerarTabuleiro(
+                    linhas,
+                    colunas,
+                    totalBombas,
+                    excluirCelula = celula
+                )
+                jogoIniciado.value = true
+
+                val celulaGerada = campo.value[celula.linha][celula.coluna]
+                Calculo.revelarCelula(celulaGerada, campo.value)
+
+                if (Calculo.verificarVitoria(campo.value)) {
+                    vitoria.value = true
+                    showVictoryDialog.value = true
+                    soundManager.stopBackgroundMusic()
+                }
+            } else {
+                if (!celula.temMina.value) {
+                    Calculo.revelarCelula(celula, campo.value)
+
+                    if (Calculo.verificarVitoria(campo.value)) {
+                        vitoria.value = true
+                        showVictoryDialog.value = true
+                        soundManager.stopBackgroundMusic()
+                    }
+                } else {
+                    try {
+                        soundManager.playBombSound(R.raw.bomb_explosion)
+                    } catch (e: Exception) {
+                        println("Som de bomba não encontrado: ${e.message}")
+                    }
+                    Calculo.revelarTudo(campo.value)
+                    gameOver.value = true
+                    soundManager.stopBackgroundMusic()
+                }
+            }
+        }
+
+        val onCellLongClick: (Celula) -> Unit = { celula ->
+            if (!celula.revelada.value && !gameOver.value && !vitoria.value && jogoIniciado.value) {
+                celula.marcada.value = !celula.marcada.value
+            }
+        }
+
         Column(
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-                for (linha in campo.value) {
-                    Row {
-                        for (celula in linha) {
-                            val backgroundColor = when {
-                                celula.revelada.value && celula.temMina.value -> Color.Red
-                                celula.marcada.value -> Color.Yellow
-                                celula.revelada.value -> Color.White
-                                else -> Color.Gray
-                            }
+            CampoGrid(
+                campo = campo.value,
+                cellSize = cellSize,
+                fontSize = fontSize,
+                onCellClick = onCellClick,
+                onCellLongClick = onCellLongClick
+            )
 
-                            Box(
-                                modifier = Modifier
-                                    .size(cellSize)
-                                    .padding(2.dp)
-                                    .background(backgroundColor)
-                                    .combinedClickable(
-                                        onClick = {
-                                            if (gameOver.value || vitoria.value) return@combinedClickable
+            GameOverMessage(gameOver = gameOver.value)
 
-                                            // Se é o primeiro clique, gera o tabuleiro excluindo esta célula
-                                            if (!jogoIniciado.value) {
-                                                campo.value = Calculo.gerarTabuleiro(
-                                                    linhas, 
-                                                    colunas, 
-                                                    totalBombas, 
-                                                    excluirCelula = celula
-                                                )
-                                                jogoIniciado.value = true
-                                                // Revela a célula clicada após gerar o tabuleiro
-                                                val celulaGerada = campo.value[celula.linha][celula.coluna]
-                                                Calculo.revelarCelula(celulaGerada, campo.value)
-                                                
-                                                // Verifica vitória após primeiro clique
-                                                if (Calculo.verificarVitoria(campo.value)) {
-                                                    vitoria.value = true
-                                                    showVictoryDialog.value = true
-                                                    soundManager.stopBackgroundMusic()
-                                                    println("🎉 Vitória!")
-                                                }
-                                            } else {
-                                                // Cliques subsequentes
-                                                if (!celula.temMina.value) {
-                                                    Calculo.revelarCelula(celula, campo.value)
-                                                    
-                                                    // Verifica vitória após cada jogada
-                                                    if (Calculo.verificarVitoria(campo.value)) {
-                                                        vitoria.value = true
-                                                        showVictoryDialog.value = true
-                                                        soundManager.stopBackgroundMusic()
-                                                        println("🎉 Vitória!")
-                                                    }
-                                                } else {
-                                                    // Toca som de bomba quando explode
-                                                    try {
-                                                        soundManager.playBombSound(R.raw.bomb_explosion)
-                                                    } catch (e: Exception) {
-                                                        println("Som de bomba não encontrado: ${e.message}")
-                                                    }
-                                                    Calculo.revelarTudo(campo.value)
-                                                    gameOver.value = true
-                                                    soundManager.stopBackgroundMusic()
-                                                    println("💣 Game Over!")
-                                                }
-                                            }
-                                        },
-                                        onLongClick = {
-                                            if (!celula.revelada.value && !gameOver.value && !vitoria.value && jogoIniciado.value) {
-                                                celula.marcada.value = !celula.marcada.value
-                                            }
-                                        }
-                                    ),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = when {
-                                        celula.revelada.value && !celula.temMina.value && celula.valor > 0 -> celula.valor.toString()
-                                        celula.revelada.value && celula.temMina.value -> "💣"
-                                        celula.marcada.value -> "🚩"
-                                        else -> ""
-                                    },
-                                    fontSize = fontSize
-                                )
-                            }
-                        }
+            VictoryDialog(
+                showVictoryDialog = showVictoryDialog.value,
+                onPlayAgain = reiniciarJogo,
+                onBackToMenu = {
+                    showVictoryDialog.value = false
+                    soundManager.stopBackgroundMusic()
+                    navController.popBackStack()
+                }
+            )
+        }
+    }
+
+    @Composable
+    private fun CampoGrid(
+        campo: List<MutableList<Celula>>,
+        cellSize: androidx.compose.ui.unit.Dp,
+        fontSize: androidx.compose.ui.unit.TextUnit,
+        onCellClick: (Celula) -> Unit,
+        onCellLongClick: (Celula) -> Unit
+    ) {
+        for (linha in campo) {
+            Row {
+                for (celula in linha) {
+                    val backgroundColor = when {
+                        celula.revelada.value && celula.temMina.value -> Color.Red
+                        celula.marcada.value -> Color.Yellow
+                        celula.revelada.value -> Color.White
+                        else -> Color.Gray
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .size(cellSize)
+                            .padding(2.dp)
+                            .background(backgroundColor)
+                            .combinedClickable(
+                                onClick = { onCellClick(celula) },
+                                onLongClick = { onCellLongClick(celula) }
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = when {
+                                celula.revelada.value && !celula.temMina.value && celula.valor > 0 -> celula.valor.toString()
+                                celula.revelada.value && celula.temMina.value -> "💣"
+                                celula.marcada.value -> "🚩"
+                                else -> ""
+                            },
+                            fontSize = fontSize
+                        )
                     }
                 }
+            }
+        }
+    }
 
-                if (gameOver.value) {
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = "💀 Game Over!",
-                        color = Color.Red,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+    @Composable
+    private fun GameOverMessage(gameOver: Boolean) {
+        if (gameOver) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "💀 Game Over!",
+                color = Color.Red,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+
+    @Composable
+    private fun VictoryDialog(
+        showVictoryDialog: Boolean,
+        onPlayAgain: () -> Unit,
+        onBackToMenu: () -> Unit
+    ) {
+        if (!showVictoryDialog) return
+
+        AlertDialog(
+            onDismissRequest = { },
+            title = {
+                Text(
+                    text = "Parabéns!",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp
+                )
+            },
+            text = {
+                Text("Você venceu a partida. O que deseja fazer?")
+            },
+            confirmButton = {
+                TextButton(onClick = onPlayAgain) {
+                    Text("Jogar novamente")
                 }
-                
-                if (showVictoryDialog.value) {
-                    AlertDialog(
-                        onDismissRequest = { },
-                        title = {
-                            Text(
-                                text = "Parabéns!",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 24.sp
-                            )
-                        },
-                        text = {
-                            Text("Você venceu a partida. O que deseja fazer?")
-                        },
-                        confirmButton = {
-                            TextButton(onClick = { reiniciarJogo() }) {
-                                Text("Jogar novamente")
-                            }
-                        },
-                        dismissButton = {
-                            TextButton(
-                                onClick = {
-                                    showVictoryDialog.value = false
-                                    soundManager.stopBackgroundMusic()
-                                    navController.popBackStack()
-                                }
-                            ) {
-                                Text("Menu principal")
-                            }
-                        }
-                    )
+            },
+            dismissButton = {
+                TextButton(onClick = onBackToMenu) {
+                    Text("Menu principal")
                 }
             }
+        )
     }
 
     @Composable
