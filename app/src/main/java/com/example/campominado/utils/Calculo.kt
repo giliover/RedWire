@@ -87,4 +87,26 @@ object Calculo {
             }
         }
     }
+
+    fun verificarVitoria(campo: List<MutableList<Celula>>): Boolean {
+        var totalCelulas = 0
+        var celulasSemBombaReveladas = 0
+        
+        for (linha in campo) {
+            for (celula in linha) {
+                totalCelulas++
+                if (!celula.temMina.value && celula.revelada.value) {
+                    celulasSemBombaReveladas++
+                }
+            }
+        }
+        
+        // Conta quantas células não têm bomba
+        val totalCelulasSemBomba = totalCelulas - campo.sumOf { linha -> 
+            linha.count { it.temMina.value } 
+        }
+        
+        // Vitória: todas as células sem bomba foram reveladas
+        return celulasSemBombaReveladas == totalCelulasSemBomba
+    }
 }

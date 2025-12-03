@@ -3,12 +3,15 @@ package com.example.campominado.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -20,7 +23,7 @@ import com.example.campominado.R
 internal class GameScreen {
 
     @Composable
-    private fun Play(mode: String) {
+    private fun Play(navController: NavController, mode: String) {
         val soundManager = rememberSoundManager()
         val (linhas, colunas, totalBombas) = when (mode) {
             "easy" -> Triple(10, 10, 10)
@@ -32,6 +35,8 @@ internal class GameScreen {
         val campo = remember { mutableStateOf(Calculo.gerarTabuleiro(linhas, colunas, totalBombas)) }
         val jogoIniciado = remember { mutableStateOf(false) }
         val gameOver = remember { mutableStateOf(false) }
+        val vitoria = remember { mutableStateOf(false) }
+        val showVictoryDialog = remember { mutableStateOf(false) }
         
         // Inicia a música de fundo quando o jogo começa
         LaunchedEffect(Unit) {
@@ -67,6 +72,20 @@ internal class GameScreen {
         val fontSizeValue = (cellSize.value * 0.4).coerceIn(10.0, 20.0)
         val fontSize = fontSizeValue.sp
 
+        val reiniciarJogo: () -> Unit = {
+            campo.value = Calculo.gerarTabuleiro(linhas, colunas, totalBombas)
+            jogoIniciado.value = false
+            gameOver.value = false
+            vitoria.value = false
+            showVictoryDialog.value = false
+            try {
+                soundManager.stopBackgroundMusic()
+                soundManager.playBackgroundMusic(R.raw.war_theme)
+            } catch (e: Exception) {
+                println("Erro ao reiniciar música: ${e.message}")
+            }
+        }
+
         Column(
             modifier = Modifier
                 .padding(16.dp)
@@ -90,7 +109,7 @@ internal class GameScreen {
                                     .background(backgroundColor)
                                     .combinedClickable(
                                         onClick = {
-                                            if (gameOver.value) return@combinedClickable
+                                            if (gameOver.value || vitoria.value) return@combinedClickable
 
                                             // Se é o primeiro clique, gera o tabuleiro excluindo esta célula
                                             if (!jogoIniciado.value) {
@@ -104,10 +123,26 @@ internal class GameScreen {
                                                 // Revela a célula clicada após gerar o tabuleiro
                                                 val celulaGerada = campo.value[celula.linha][celula.coluna]
                                                 Calculo.revelarCelula(celulaGerada, campo.value)
+                                                
+                                                // Verifica vitória após primeiro clique
+                                                if (Calculo.verificarVitoria(campo.value)) {
+                                                    vitoria.value = true
+                                                    showVictoryDialog.value = true
+                                                    soundManager.stopBackgroundMusic()
+                                                    println("🎉 Vitória!")
+                                                }
                                             } else {
                                                 // Cliques subsequentes
                                                 if (!celula.temMina.value) {
                                                     Calculo.revelarCelula(celula, campo.value)
+                                                    
+                                                    // Verifica vitória após cada jogada
+                                                    if (Calculo.verificarVitoria(campo.value)) {
+                                                        vitoria.value = true
+                                                        showVictoryDialog.value = true
+                                                        soundManager.stopBackgroundMusic()
+                                                        println("🎉 Vitória!")
+                                                    }
                                                 } else {
                                                     // Toca som de bomba quando explode
                                                     try {
@@ -123,7 +158,7 @@ internal class GameScreen {
                                             }
                                         },
                                         onLongClick = {
-                                            if (!celula.revelada.value && !gameOver.value && jogoIniciado.value) {
+                                            if (!celula.revelada.value && !gameOver.value && !vitoria.value && jogoIniciado.value) {
                                                 celula.marcada.value = !celula.marcada.value
                                             }
                                         }
@@ -146,7 +181,44 @@ internal class GameScreen {
 
                 if (gameOver.value) {
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text("💀 Game Over!", color = Color.Red, fontSize = 20.sp)
+                    Text(
+                        text = "💀 Game Over!",
+                        color = Color.Red,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                
+                if (showVictoryDialog.value) {
+                    AlertDialog(
+                        onDismissRequest = { },
+                        title = {
+                            Text(
+                                text = "Parabéns!",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp
+                            )
+                        },
+                        text = {
+                            Text("Você venceu a partida. O que deseja fazer?")
+                        },
+                        confirmButton = {
+                            TextButton(onClick = { reiniciarJogo() }) {
+                                Text("Jogar novamente")
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(
+                                onClick = {
+                                    showVictoryDialog.value = false
+                                    soundManager.stopBackgroundMusic()
+                                    navController.popBackStack()
+                                }
+                            ) {
+                                Text("Menu principal")
+                            }
+                        }
+                    )
                 }
             }
     }
@@ -164,7 +236,7 @@ internal class GameScreen {
             ) {
                 ui.CreateTitle("Modo de jogo: $mode")
                 Spacer(modifier = Modifier.height(16.dp))
-                Play(mode)
+                Play(navController, mode)
                 Spacer(modifier = Modifier.height(16.dp))
                 ui.CreateButton(
                     text = "Voltar",
