@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedWire - Campo Minado Android | Apresentação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .presentation-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            padding: 60px 80px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 5px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide h1 {
+            font-size: 2.8em;
+            color: #667eea;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #764ba2;
+            padding-bottom: 12px;
+        }
+
+        .slide h2 {
+            font-size: 2em;
+            color: #764ba2;
+            margin: 20px 0 15px 0;
+        }
+
+        .slide h3 {
+            font-size: 1.4em;
+            color: #667eea;
+            margin: 18px 0 12px 0;
+        }
+
+        .slide p,
+        .slide li {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .slide ul {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        .slide li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .code-block::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .code-block::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .code-block::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 3px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 5px solid #667eea;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .architecture-diagram {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 0.8em;
+            border: 2px solid #667eea;
+        }
+
+        .architecture-diagram::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .architecture-diagram::-webkit-scrollbar-track {
+            background: #e9ecef;
+        }
+
+        .architecture-diagram::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 3px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-slide {
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title-slide h1 {
+            font-size: 4.5em;
+            margin-bottom: 30px;
+            border: none;
+        }
+
+        .title-slide .subtitle {
+            font-size: 2em;
+            color: #764ba2;
+            margin-bottom: 50px;
+        }
+
+        .title-slide .authors {
+            font-size: 1.5em;
+            color: #666;
+            margin-top: 50px;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 5px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 25px;
+            }
+
+            .slide h1 {
+                font-size: 2em;
+            }
+
+            .slide h2 {
+                font-size: 1.5em;
+            }
+
+            .slide h3 {
+                font-size: 1.2em;
+            }
+
+            .slide p,
+            .slide li {
+                font-size: 1em;
+            }
+
+            .title-slide h1 {
+                font-size: 2.5em;
+            }
+
+            .title-slide .subtitle {
+                font-size: 1.4em;
+            }
+
+            .navigation {
+                bottom: 15px;
+            }
+
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .code-block {
+                font-size: 0.75em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">23</span>
+        </div>
+
+        <div class="slide active title-slide">
+            <h1>RedWire</h1>
+            <div class="subtitle">Campo Minado Android</div>
+            <div class="feature-box" style="max-width: 600px; margin: 40px auto;">
+                <p style="font-size: 1.4em; text-align: center;">
+                    Aplicação Android desenvolvida em Kotlin<br>
+                    com foco em <span class="highlight">Programação Orientada a Objetos</span>
+                </p>
+            </div>
+            <div class="authors">
+                <p>Caio Silva & Carlos Vergílio</p>
+                <p style="font-size: 0.8em; margin-top: 20px; color: #999;">2025</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Visão Geral do Projeto</h1>
+            <div class="feature-box">
+                <h3>Objetivo Principal</h3>
+                <p>Desenvolver uma aplicação Android de Campo Minado utilizando <strong>Kotlin</strong> e
+                    <strong>Jetpack Compose</strong>,
+                    aplicando conceitos fundamentais de <strong>Orientação a Objetos</strong> para uma disciplina de
+                    paradigmas de programação.
+                </p>
+            </div>
+
+            <h2>Características Principais</h2>
+            <ul>
+                <li><strong>Arquitetura Orientada a Objetos:</strong> Separação clara de responsabilidades entre Model,
+                    UI e Utils</li>
+                <li><strong>Jetpack Compose:</strong> Interface declarativa e reativa</li>
+                <li><strong>Material Design 3:</strong> Tema moderno e consistente</li>
+                <li><strong>Navegação:</strong> Sistema de navegação baseado em grafo</li>
+                <li><strong>Gerenciamento de Estado:</strong> Uso de State no Compose para reatividade</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h1>Arquitetura do Projeto</h1>
+            <h2>Estrutura de Camadas</h2>
+            <div class="architecture-diagram">
+                <pre>
+com.example.campominado/
+├── model/              # Camada de Domínio (OO)
+│   └── Celula.kt       # Entidade básica do jogo
+├── ui/
+│   ├── screens/        # Telas da aplicação
+│   │   ├── MainActivity.kt
+│   │   ├── MainMenuScreen.kt
+│   │   ├── GameScreen.kt
+│   │   ├── CampoMinadoGrid.kt
+│   │   └── ComponentesUI.kt
+│   ├── theme/          # Sistema de temas
+│   │   ├── Color.kt
+│   │   ├── Theme.kt
+│   │   └── Type.kt
+│   └── utils/
+│       └── SafeClick.kt
+└── util/               # Utilitários
+    ├── Calculo.kt      # Lógica de negócio
+    ├── SoundManager.kt
+    └── NavHost.kt
+</pre>
+            </div>
+            <div class="feature-box">
+                <p><strong>Princípio de Separação de Responsabilidades:</strong> Cada pacote tem uma responsabilidade
+                    específica,
+                    facilitando manutenção e testes.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Modelo de Domínio: Celula</h1>
+            <h2>Entidade Fundamental do Jogo</h2>
+            <div class="code-block">
+                <pre>data class Celula(
+    val linha: Int,
+    val coluna: Int
+) {
+    val temMina = mutableStateOf(false)   // se há bomba
+    val revelada = mutableStateOf(false)  // se foi clicada
+    val marcada = mutableStateOf(false)   // se o jogador marcou bandeira
+    var valor: Int = 0                    // número de bombas ao redor
+}</pre>
+            </div>
+
+            <div class="feature-box">
+                <h3>Características OO</h3>
+                <ul>
+                    <li><strong>Data Class:</strong> Equals, hashCode, toString automáticos</li>
+                    <li><strong>Encapsulamento:</strong> Estado interno protegido</li>
+                    <li><strong>Reatividade:</strong> mutableStateOf para UI reativa</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Propriedades de Estado: Celula</h1>
+            <h2>Gerenciamento de Estado da Célula</h2>
+
+            <div class="feature-box">
+                <h3>temMina</h3>
+                <p>Indica se há uma mina associada àquela célula. Usada tanto na lógica de geração
+                    (<code>Calculo.gerarTabuleiro</code>) quanto na verificação de Game Over.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>revelada</h3>
+                <p>Indica se a célula já foi aberta pelo jogador. Evita que a mesma célula seja
+                    processada mais de uma vez, especialmente na recursão de <code>revelarCelula</code>.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>marcada</h3>
+                <p>Representa a marcação com bandeira pelo jogador. Em telas como <code>GameScreen</code>,
+                    controla quando exibir o ícone 🚩.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>valor</h3>
+                <p>Armazena o número de bombas adjacentes. É preenchido por <code>Calculo.gerarTabuleiro</code>
+                    usando <code>contarBombasAdjacentes</code>.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Lógica de Negócio: Calculo</h1>
+            <h2>Singleton para Regras do Jogo</h2>
+            <div class="code-block">
+                <pre>object Calculo {
+    fun gerarTabuleiro(
+        linhas: Int,
+        colunas: Int,
+        totalBombas: Int
+    ): List&lt;MutableList&lt;Celula&gt;&gt;
+    
+    private fun contarBombasAdjacentes(
+        campo: List&lt;MutableList&lt;Celula&gt;&gt;,
+        linha: Int,
+        coluna: Int
+    ): Int
+    
+    fun revelarCelula(
+        celula: Celula,
+        campo: List&lt;MutableList&lt;Celula&gt;&gt;
+    )
+    
+    fun revelarTudo(
+        campo: List&lt;MutableList&lt;Celula&gt;&gt;
+    )
+}</pre>
+            </div>
+
+            <div class="feature-box">
+                <h3>Padrão Singleton</h3>
+                <p>O uso de <code>object</code> em Kotlin garante uma única instância global,
+                    centralizando toda a lógica de cálculo do jogo em um único ponto de acesso.</p>
+            </div>
+
+            <h3>Funcionalidades Principais</h3>
+            <ul>
+                <li><strong>gerarTabuleiro:</strong> Cria matriz e posiciona bombas aleatoriamente</li>
+                <li><strong>contarBombasAdjacentes:</strong> Calcula número de minas vizinhas</li>
+                <li><strong>revelarCelula:</strong> Implementa lógica recursiva de revelação</li>
+                <li><strong>revelarTudo:</strong> Expõe todo o tabuleiro (Game Over)</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h1>MainActivity</h1>
+            <h2>Ponto de Entrada da Aplicação</h2>
+
+            <div class="feature-box">
+                <h3>Responsabilidades</h3>
+                <ul>
+                    <li><strong>Ponto de entrada:</strong> Activity principal do Android</li>
+                    <li><strong>Gerenciamento de Splash Screen:</strong> Controla a tela inicial</li>
+                    <li><strong>Configuração do NavHost:</strong> Define o grafo de navegação</li>
+                    <li><strong>Inicialização do tema:</strong> Aplica CampoMinadoTheme</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Enfoque em OO</h3>
+                <p>A <code>MainActivity</code> orquestra a inicialização da aplicação, delegando
+                    responsabilidades específicas para componentes especializados como <code>NavHost</code>
+                    e <code>CampoMinadoTheme</code>.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>MainMenuScreen</h1>
+            <h2>Tela Principal do Menu</h2>
+
+            <div class="feature-box">
+                <h3>Funcionalidades</h3>
+                <ul>
+                    <li><strong>Tela principal:</strong> Primeira interface após o splash</li>
+                    <li><strong>Seleção de dificuldade:</strong> Permite escolher modo de jogo</li>
+                    <li><strong>Navegação:</strong> Redireciona para GameScreen com parâmetros</li>
+                    <li><strong>Componentes reutilizáveis:</strong> Usa ComponentesUI para consistência</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Composição de Componentes</h3>
+                <p>A tela compõe elementos de <code>ComponentesUI</code> (títulos, botões) para
+                    criar uma interface consistente, aplicando o princípio de composição sobre herança.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>GameScreen</h1>
+            <h2>Tela de Jogo Principal</h2>
+
+            <div class="feature-box">
+                <h3>Responsabilidades</h3>
+                <ul>
+                    <li><strong>Tela de jogo:</strong> Onde a partida é jogada</li>
+                    <li><strong>Orquestração do tabuleiro:</strong> Integra CampoMinadoGrid</li>
+                    <li><strong>Gerenciamento de estado:</strong> Controla estado da partida</li>
+                    <li><strong>Integração com lógica:</strong> Conecta UI com Calculo</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Encapsulamento</h3>
+                <p>A função privada <code>Play()</code> encapsula a renderização e interação do
+                    tabuleiro, escondendo detalhes de implementação do mundo externo.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>CampoMinadoGrid</h1>
+            <h2>Renderização da Grade</h2>
+
+            <div class="feature-box">
+                <h3>Funcionalidades</h3>
+                <ul>
+                    <li><strong>Renderização da grade:</strong> Desenha o tabuleiro de células</li>
+                    <li><strong>Interação com células:</strong> Gerencia cliques do usuário</li>
+                    <li><strong>Clique e Long Click:</strong> Revelar célula ou marcar bandeira</li>
+                    <li><strong>Atualização reativa:</strong> Responde a mudanças de estado</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Integração com Lógica</h3>
+                <p>O componente trabalha diretamente com a matriz de <code>Celula</code> e chama
+                    funções de <code>Calculo</code> para processar ações do jogador.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Componentes Reutilizáveis</h1>
+            <h2>ComponentesUI</h2>
+
+            <div class="code-block">
+                <pre>internal class ComponentesUI {
+    @Composable
+    fun CreateTitle(text: String) { ... }
+    
+    @Composable
+    fun CreateButton(
+        text: String,
+        onClick: () -> Unit
+    ) { ... }
+}</pre>
+            </div>
+
+            <div class="feature-box">
+                <h3>Princípio DRY (Don't Repeat Yourself)</h3>
+                <p>Componentes centralizados garantem consistência visual e reduzem duplicação de código,
+                    aplicando o princípio de <strong>composição sobre herança</strong>.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>SafeClick</h1>
+            <h2>Prevenção de Múltiplos Cliques</h2>
+
+            <div class="feature-box">
+                <h3>Funcionalidade</h3>
+                <p>Implementa lógica de <strong>debounce</strong> para evitar ações acidentais duplicadas,
+                    melhorando significativamente a experiência do usuário.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Método Create</h3>
+                <p>O método <code>Create</code> encapsula a lógica de debounce, garantindo que apenas
+                    um clique seja processado dentro de um intervalo de tempo determinado.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Benefício OO</h3>
+                <p>Centraliza a lógica de prevenção de múltiplos cliques em um único componente reutilizável,
+                    aplicando o princípio da responsabilidade única.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Sistema de Tema: Color</h1>
+            <h2>Esquema de Cores Material Design 3</h2>
+
+            <div class="feature-box">
+                <h3>Características</h3>
+                <ul>
+                    <li><strong>Esquema centralizado:</strong> Todas as cores definidas em um único local</li>
+                    <li><strong>Dark/Light mode:</strong> Suporte completo a temas claro e escuro</li>
+                    <li><strong>Cores primárias e secundárias:</strong> Paleta completa Material Design</li>
+                    <li><strong>Convenções:</strong> Segue padrões do Material Design 3</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Benefício OO</h3>
+                <p>Centralização de cores facilita manutenção e garante consistência visual em toda
+                    a aplicação, aplicando o princípio DRY.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Sistema de Tema: Type</h1>
+            <h2>Tipografia Padronizada</h2>
+
+            <div class="feature-box">
+                <h3>Características</h3>
+                <ul>
+                    <li><strong>Tipografia padronizada:</strong> Estilos de texto consistentes</li>
+                    <li><strong>Hierarquia visual:</strong> Diferentes tamanhos e pesos</li>
+                    <li><strong>Estilos reutilizáveis:</strong> bodyLarge, titleLarge, etc.</li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+                <pre>val Typography = Typography(
+    bodyLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    )
+)</pre>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>CampoMinadoTheme</h1>
+            <h2>Composable de Tema Principal</h2>
+
+            <div class="code-block">
+                <pre>@Composable
+fun CampoMinadoTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
+}</pre>
+            </div>
+
+            <div class="feature-box">
+                <h3>Composição de Temas</h3>
+                <p>O <code>CampoMinadoTheme</code> compõe <code>ColorScheme</code> e <code>Typography</code>
+                    em um único tema aplicável a toda a aplicação, demonstrando composição de objetos.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Conceitos OO: Encapsulamento</h1>
+
+            <div class="feature-box">
+                <h3>Definição</h3>
+                <p>Classes como <code>Celula</code> e <code>GameScreen</code> encapsulam estado e comportamento,
+                    limitando acesso através de modificadores de visibilidade (<code>internal</code>,
+                    <code>private</code>).
+                </p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Exemplo: GameScreen</h3>
+                <p>A função privada <code>Play()</code> encapsula a renderização e interação do tabuleiro,
+                    escondendo detalhes de implementação do mundo externo.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Exemplo: Celula</h3>
+                <p>O estado interno da célula (temMina, revelada, marcada) é protegido dentro da classe,
+                    garantindo integridade dos dados.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Conceitos OO: Abstração e Composição</h1>
+
+            <div class="feature-box">
+                <h3>Abstração</h3>
+                <p>Telas e componentes abstraem complexidade, expondo apenas interfaces simples para uso externo.
+                    Por exemplo, <code>ComponentesUI</code> abstrai detalhes de renderização, oferecendo métodos
+                    simples como <code>CreateTitle()</code> e <code>CreateButton()</code>.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Composição</h3>
+                <p>Componentes são compostos para formar telas complexas. <code>GameScreen</code> utiliza
+                    <code>ComponentesUI</code> e <code>CampoMinadoGrid</code>, aplicando <strong>composição sobre
+                        herança</strong>.
+                </p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Benefício</h3>
+                <p>A composição permite reutilização de código sem as limitações da herança, facilitando
+                    manutenção e testes.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Conceitos OO: Separação de Responsabilidades</h1>
+
+            <div class="feature-box">
+                <h3>Princípio da Responsabilidade Única (SRP)</h3>
+                <p>Pacotes distintos para Model (domínio), UI (apresentação) e Util (serviços),
+                    garantindo que cada componente tenha uma única razão para mudar.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Model (Domínio)</h3>
+                <p><code>Celula</code> representa a entidade de negócio, independente de como é exibida.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>UI (Apresentação)</h3>
+                <p>Telas em <code>ui/screens/</code> são responsáveis apenas pela apresentação e interação.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Util (Serviços)</h3>
+                <p><code>Calculo</code> e outros utilitários fornecem serviços especializados sem
+                    depender da UI.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Tecnologias: Kotlin</h1>
+
+            <div style="text-align: center; margin: 40px 0;">
+                <span class="tech-badge">Kotlin</span>
+            </div>
+
+            <div class="feature-box">
+                <h3>Recursos Utilizados</h3>
+                <ul>
+                    <li><strong>Data classes:</strong> Para modelos como <code>Celula</code></li>
+                    <li><strong>Object singletons:</strong> Para <code>Calculo</code> (única instância)</li>
+                    <li><strong>Extension functions:</strong> Para código mais expressivo</li>
+                    <li><strong>Null safety:</strong> Prevenção de erros em tempo de compilação</li>
+                    <li><strong>Coroutines:</strong> Potencial para operações assíncronas</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Vantagens para OO</h3>
+                <p>Kotlin facilita a implementação de conceitos OO com sintaxe concisa e recursos
+                    modernos que reduzem boilerplate.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Tecnologias: Jetpack Compose</h1>
+
+            <div style="text-align: center; margin: 40px 0;">
+                <span class="tech-badge">Jetpack Compose</span>
+            </div>
+
+            <div class="feature-box">
+                <h3>Recursos Utilizados</h3>
+                <ul>
+                    <li><strong>UI declarativa:</strong> Interface definida por funções Composable</li>
+                    <li><strong>Reatividade com State:</strong> mutableStateOf para atualizações automáticas</li>
+                    <li><strong>Composição de componentes:</strong> Componentes reutilizáveis</li>
+                    <li><strong>Theming system:</strong> Sistema de temas Material Design 3</li>
+                    <li><strong>Performance otimizada:</strong> Recomposição inteligente</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Outras Tecnologias</h3>
+                <p style="text-align: center; margin: 20px 0;">
+                    <span class="tech-badge">Material Design 3</span>
+                    <span class="tech-badge">Android SDK</span>
+                    <span class="tech-badge">Navigation Component</span>
+                    <span class="tech-badge">Gradle</span>
+                </p>
+            </div>
+        </div>
+
+
+        <div class="slide title-slide">
+            <h1>Conclusão</h1>
+            <div class="feature-box" style="max-width: 800px; margin: 40px auto;">
+                <h2 style="text-align: center; margin-bottom: 30px;">Tarefas realizadas</h2>
+                <ul style="text-align: left;">
+                    <li>Aplicação funcional de Campo Minado em Android</li>
+                    <li>Arquitetura orientada a objetos bem estruturada</li>
+                    <li>Separação clara de responsabilidades</li>
+                    <li>Uso moderno de Jetpack Compose</li>
+                    <li>Sistema de tema Material Design 3</li>
+                    <li>Componentes reutilizáveis e modulares</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 50px;">
+                <h2 style="font-size: 2em; color: #764ba2;">Obrigado!</h2>
+                <p style="font-size: 1.3em; color: #666; margin-top: 20px;">
+                    Perguntas?
+                </p>
+            </div>
+        </div>
+
+
+        <div class="slide">
+            <h1>Historico de Commits do Projeto</h1>
+
+            <img src="./gitcommithistory.png" alt="Historico de Commits do Projeto" style="width: 100%; height: 100%;">
+
+
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Anterior</button>
+        <button class="nav-btn" onclick="nextSlide()">Próximo →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            if (n >= totalSlides) {
+                currentSlide = 0;
+            } else if (n < 0) {
+                currentSlide = totalSlides - 1;
+            } else {
+                currentSlide = n;
+            }
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Navegação por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                previousSlide();
+            }
+        });
+
+        // Inicialização
+        showSlide(0);
+    </script>
+</body>
+
+</html>
