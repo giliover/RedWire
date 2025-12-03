@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -42,20 +43,49 @@ internal class GameScreen {
             }
         }
 
-        Column(modifier = Modifier.padding(16.dp)) {
-            for (linha in campo.value) {
-                Row {
-                    for (celula in linha) {
-                        val backgroundColor = when {
-                            celula.revelada.value && celula.temMina.value -> Color.Red
-                            celula.marcada.value -> Color.Yellow
-                            celula.revelada.value -> Color.White
-                            else -> Color.Gray
-                        }
+        val configuration = LocalConfiguration.current
+        val screenWidthDp = configuration.screenWidthDp.dp
+        val screenHeightDp = configuration.screenHeightDp.dp
+        
+        // Calcula o espaço disponível considerando padding e elementos da UI
+        val horizontalPadding = 32.dp // 16dp de cada lado
+        val verticalPadding = 160.dp // espaço para título, botões, mensagens e espaçamentos
+        
+        val availableWidth = screenWidthDp - horizontalPadding
+        val availableHeight = screenHeightDp - verticalPadding
+        
+        // Calcula o tamanho da célula baseado no espaço disponível
+        // Considera padding entre células (2dp de cada lado = 4dp total por célula)
+        val cellPadding = 4.dp
+        val maxCellWidth = (availableWidth / colunas) - cellPadding
+        val maxCellHeight = (availableHeight / linhas) - cellPadding
+        
+        // Usa o menor valor para manter células quadradas e garantir que caiba na tela
+        val cellSize = minOf(maxCellWidth, maxCellHeight, 60.dp).coerceAtLeast(24.dp)
+        
+        // Calcula tamanho da fonte proporcional ao tamanho da célula
+        val fontSizeValue = (cellSize.value * 0.4).coerceIn(10.0, 20.0)
+        val fontSize = fontSizeValue.sp
+
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+                for (linha in campo.value) {
+                    Row {
+                        for (celula in linha) {
+                            val backgroundColor = when {
+                                celula.revelada.value && celula.temMina.value -> Color.Red
+                                celula.marcada.value -> Color.Yellow
+                                celula.revelada.value -> Color.White
+                                else -> Color.Gray
+                            }
 
                             Box(
                                 modifier = Modifier
-                                    .size(40.dp)
+                                    .size(cellSize)
                                     .padding(2.dp)
                                     .background(backgroundColor)
                                     .combinedClickable(
@@ -107,19 +137,18 @@ internal class GameScreen {
                                         celula.marcada.value -> "🚩"
                                         else -> ""
                                     },
-                                    fontSize = 16.sp
+                                    fontSize = fontSize
                                 )
-
+                            }
                         }
                     }
                 }
-            }
 
-            if (gameOver.value) {
-                Spacer(modifier = Modifier.height(16.dp))
-                Text("💀 Game Over!", color = Color.Red, fontSize = 20.sp)
+                if (gameOver.value) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text("💀 Game Over!", color = Color.Red, fontSize = 20.sp)
+                }
             }
-        }
     }
 
     @Composable
