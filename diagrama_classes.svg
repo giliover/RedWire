@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1400" height="2000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .class-box { fill: #e8f4f8; stroke: #2c5aa0; stroke-width: 2; }
+      .package-box { fill: #f0f0f0; stroke: #666; stroke-width: 1; stroke-dasharray: 5,5; }
+      .title-box { fill: #2c5aa0; stroke: #1a3d6b; stroke-width: 2; }
+      .text-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: white; }
+      .text-class { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #1a3d6b; }
+      .text-attr { font-family: 'Courier New', monospace; font-size: 10px; fill: #333; }
+      .text-method { font-family: 'Courier New', monospace; font-size: 10px; fill: #0066cc; }
+      .text-package { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #555; }
+      .line { stroke: #666; stroke-width: 1.5; fill: none; }
+      .arrow { fill: #666; }
+      .inheritance { stroke: #0066cc; stroke-width: 2; }
+      .composition { stroke: #cc0000; stroke-width: 2; }
+      .dependency { stroke: #009900; stroke-width: 1.5; stroke-dasharray: 3,3; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="700" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a3d6b">
+    Diagrama de Classes - Campo Minado Android
+  </text>
+  
+  <!-- Pacote: com.example.campominado -->
+  <rect x="50" y="60" width="300" height="120" class="package-box" rx="5"/>
+  <text x="200" y="80" text-anchor="middle" class="text-package">com.example.campominado</text>
+  
+  <!-- MainActivity -->
+  <rect x="70" y="100" width="260" height="70" class="class-box" rx="3"/>
+  <rect x="70" y="100" width="260" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="200" y="118" text-anchor="middle" class="text-title">MainActivity</text>
+  <text x="80" y="140" class="text-attr">- isLoading: Boolean</text>
+  <text x="80" y="155" class="text-method">+ onCreate(savedInstanceState: Bundle?)</text>
+  
+  <!-- Herança MainActivity -> ComponentActivity -->
+  <path d="M 200 100 L 200 50" class="inheritance"/>
+  <polygon points="200,50 195,60 205,60" class="arrow"/>
+  <text x="210" y="75" class="text-attr" font-size="9">extends ComponentActivity</text>
+  
+  <!-- Pacote: com.example.campominado.model -->
+  <rect x="450" y="60" width="300" height="140" class="package-box" rx="5"/>
+  <text x="600" y="80" text-anchor="middle" class="text-package">com.example.campominado.model</text>
+  
+  <!-- Celula -->
+  <rect x="470" y="100" width="260" height="90" class="class-box" rx="3"/>
+  <rect x="470" y="100" width="260" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="600" y="118" text-anchor="middle" class="text-title">Celula (data class)</text>
+  <text x="480" y="140" class="text-attr">+ linha: Int</text>
+  <text x="480" y="155" class="text-attr">+ coluna: Int</text>
+  <text x="480" y="170" class="text-attr">+ temMina: MutableState&lt;Boolean&gt;</text>
+  <text x="480" y="185" class="text-attr">+ revelada: MutableState&lt;Boolean&gt;</text>
+  
+  <!-- Pacote: com.example.campominado.util -->
+  <rect x="850" y="60" width="500" height="500" class="package-box" rx="5"/>
+  <text x="1100" y="80" text-anchor="middle" class="text-package">com.example.campominado.util</text>
+  
+  <!-- Calculo -->
+  <rect x="870" y="100" width="200" height="110" class="class-box" rx="3"/>
+  <rect x="870" y="100" width="200" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="970" y="118" text-anchor="middle" class="text-title">Calculo (object)</text>
+  <text x="880" y="140" class="text-method">+ gerarTabuleiro(...): List</text>
+  <text x="880" y="155" class="text-method">+ revelarCelula(...)</text>
+  <text x="880" y="170" class="text-method">+ revelarTudo(...)</text>
+  <text x="880" y="185" class="text-method">- contarBombasAdjacentes(...): Int</text>
+  
+  <!-- Dependência Calculo -> Celula -->
+  <path d="M 970 210 L 600 200" class="dependency"/>
+  <polygon points="600,200 605,195 605,205" class="arrow"/>
+  
+  <!-- SoundManager -->
+  <rect x="1090" y="100" width="240" height="140" class="class-box" rx="3"/>
+  <rect x="1090" y="100" width="240" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="1210" y="118" text-anchor="middle" class="text-title">SoundManager</text>
+  <text x="1100" y="140" class="text-attr">- context: Context</text>
+  <text x="1100" y="155" class="text-attr">- backgroundMusic: MediaPlayer?</text>
+  <text x="1100" y="170" class="text-attr">- bombSound: MediaPlayer?</text>
+  <text x="1100" y="185" class="text-method">+ playBackgroundMusic(resourceId: Int)</text>
+  <text x="1100" y="200" class="text-method">+ stopBackgroundMusic()</text>
+  <text x="1100" y="215" class="text-method">+ playBombSound(resourceId: Int)</text>
+  <text x="1100" y="230" class="text-method">+ release()</text>
+  
+  <!-- SafeClick -->
+  <rect x="870" y="230" width="200" height="80" class="class-box" rx="3"/>
+  <rect x="870" y="230" width="200" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="970" y="248" text-anchor="middle" class="text-title">SafeClick</text>
+  <text x="880" y="270" class="text-method">+ Create(delayMillis: Long, action: () -&gt; Unit): () -&gt; Unit</text>
+  
+  <!-- NavHost -->
+  <rect x="1090" y="260" width="240" height="90" class="class-box" rx="3"/>
+  <rect x="1090" y="260" width="240" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="1210" y="278" text-anchor="middle" class="text-title">NavHost</text>
+  <text x="1100" y="300" class="text-method">+ Create()</text>
+  
+  <!-- Dependência NavHost -> MainMenuScreen -->
+  <path d="M 1090 300 L 450 400" class="dependency"/>
+  <polygon points="450,400 455,395 455,405" class="arrow"/>
+  
+  <!-- Dependência NavHost -> GameScreen -->
+  <path d="M 1090 320 L 450 500" class="dependency"/>
+  <polygon points="450,500 455,495 455,505" class="arrow"/>
+  
+  <!-- rememberSoundManager (função) -->
+  <rect x="870" y="330" width="200" height="60" class="class-box" rx="3"/>
+  <rect x="870" y="330" width="200" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="970" y="348" text-anchor="middle" class="text-title">rememberSoundManager</text>
+  <text x="880" y="370" class="text-method">@Composable fun rememberSoundManager(): SoundManager</text>
+  
+  <!-- Dependência rememberSoundManager -> SoundManager -->
+  <path d="M 970 390 L 1210 240" class="dependency"/>
+  <polygon points="1210,240 1215,235 1215,245" class="arrow"/>
+  
+  <!-- Pacote: com.example.campominado.ui.screens -->
+  <rect x="450" y="380" width="500" height="400" class="package-box" rx="5"/>
+  <text x="700" y="400" text-anchor="middle" class="text-package">com.example.campominado.ui.screens</text>
+  
+  <!-- ComponentesUI -->
+  <rect x="470" y="420" width="240" height="120" class="class-box" rx="3"/>
+  <rect x="470" y="420" width="240" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="590" y="438" text-anchor="middle" class="text-title">ComponentesUI</text>
+  <text x="480" y="460" class="text-method">+ CreateTitle(text: String)</text>
+  <text x="480" y="475" class="text-method">+ CreateButton(text: String, onClick: () -&gt; Unit)</text>
+  <text x="480" y="490" class="text-method">+ CreateBackground(...)</text>
+  
+  <!-- Dependência ComponentesUI -> SafeClick -->
+  <path d="M 470 480 L 870 270" class="dependency"/>
+  <polygon points="870,270 875,265 875,275" class="arrow"/>
+  
+  <!-- MainMenuScreen -->
+  <rect x="470" y="560" width="240" height="90" class="class-box" rx="3"/>
+  <rect x="470" y="560" width="240" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="590" y="578" text-anchor="middle" class="text-title">MainMenuScreen</text>
+  <text x="480" y="600" class="text-method">+ Create(navController: NavController)</text>
+  
+  <!-- Composição MainMenuScreen -> ComponentesUI -->
+  <path d="M 590 560 L 590 420" class="composition"/>
+  <polygon points="590,420 585,430 595,430" class="arrow"/>
+  
+  <!-- Dependência MainMenuScreen -> SoundManager -->
+  <path d="M 710 605 L 1210 170" class="dependency"/>
+  <polygon points="1210,170 1215,165 1215,175" class="arrow"/>
+  
+  <!-- GameScreen -->
+  <rect x="470" y="670" width="240" height="100" class="class-box" rx="3"/>
+  <rect x="470" y="670" width="240" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="590" y="688" text-anchor="middle" class="text-title">GameScreen</text>
+  <text x="480" y="710" class="text-method">+ Create(navController: NavController, mode: String)</text>
+  <text x="480" y="725" class="text-method">- Play(mode: String)</text>
+  
+  <!-- Composição GameScreen -> ComponentesUI -->
+  <path d="M 590 670 L 590 540" class="composition"/>
+  <polygon points="590,540 585,550 595,550" class="arrow"/>
+  
+  <!-- Dependência GameScreen -> SoundManager -->
+  <path d="M 710 720 L 1210 185" class="dependency"/>
+  <polygon points="1210,185 1215,180 1215,190" class="arrow"/>
+  
+  <!-- Dependência GameScreen -> Calculo -->
+  <path d="M 470 720 L 870 155" class="dependency"/>
+  <polygon points="870,155 875,150 875,160" class="arrow"/>
+  
+  <!-- Dependência GameScreen -> Celula -->
+  <path d="M 470 740 L 600 200" class="dependency"/>
+  <polygon points="600,200 605,195 605,205" class="arrow"/>
+  
+  <!-- CampoMinadoGrid -->
+  <rect x="730" y="420" width="200" height="100" class="class-box" rx="3"/>
+  <rect x="730" y="420" width="200" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="830" y="438" text-anchor="middle" class="text-title">CampoMinadoGrid</text>
+  <text x="740" y="460" class="text-method">+ Create(matriz: List&lt;MutableList&lt;Celula&gt;&gt;, modifier: Modifier)</text>
+  
+  <!-- Dependência CampoMinadoGrid -> Celula -->
+  <path d="M 730 470 L 600 200" class="dependency"/>
+  <polygon points="600,200 605,195 605,205" class="arrow"/>
+  
+  <!-- Dependência CampoMinadoGrid -> Calculo -->
+  <path d="M 730 490 L 870 170" class="dependency"/>
+  <polygon points="870,170 875,165 875,175" class="arrow"/>
+  
+  <!-- Pacote: com.example.campominado.ui.theme -->
+  <rect x="50" y="800" width="400" height="200" class="package-box" rx="5"/>
+  <text x="250" y="820" text-anchor="middle" class="text-package">com.example.campominado.ui.theme</text>
+  
+  <!-- CampoMinadoTheme (função) -->
+  <rect x="70" y="840" width="360" height="100" class="class-box" rx="3"/>
+  <rect x="70" y="840" width="360" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="250" y="858" text-anchor="middle" class="text-title">CampoMinadoTheme (Composable)</text>
+  <text x="80" y="880" class="text-method">@Composable fun CampoMinadoTheme(</text>
+  <text x="90" y="895" class="text-attr">  darkTheme: Boolean = isSystemInDarkTheme(),</text>
+  <text x="90" y="910" class="text-attr">  dynamicColor: Boolean = true,</text>
+  <text x="90" y="925" class="text-attr">  content: @Composable () -&gt; Unit</text>
+  
+  <!-- Color (valores) -->
+  <rect x="70" y="960" width="170" height="30" class="class-box" rx="3"/>
+  <rect x="70" y="960" width="170" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="155" y="978" text-anchor="middle" class="text-title">Color (val)</text>
+  
+  <!-- Type (valor) -->
+  <rect x="260" y="960" width="170" height="30" class="class-box" rx="3"/>
+  <rect x="260" y="960" width="170" height="25" class="title-box" rx="3,3,0,0"/>
+  <text x="345" y="978" text-anchor="middle" class="text-title">Type (Typography)</text>
+  
+  <!-- Dependência CampoMinadoTheme -> Color -->
+  <path d="M 250 940 L 155 960" class="dependency"/>
+  <polygon points="155,960 160,955 160,965" class="arrow"/>
+  
+  <!-- Dependência CampoMinadoTheme -> Type -->
+  <path d="M 250 940 L 345 960" class="dependency"/>
+  <polygon points="345,960 350,955 350,965" class="arrow"/>
+  
+  <!-- Dependência MainActivity -> NavHost -->
+  <path d="M 200 170 L 1210 300" class="dependency"/>
+  <polygon points="1210,300 1215,295 1215,305" class="arrow"/>
+  
+  <!-- Dependência MainActivity -> CampoMinadoTheme -->
+  <path d="M 200 170 L 250 840" class="dependency"/>
+  <polygon points="250,840 255,835 255,845" class="arrow"/>
+  
+  <!-- Legenda -->
+  <rect x="50" y="1020" width="1300" height="150" fill="#f9f9f9" stroke="#ccc" stroke-width="1" rx="5"/>
+  <text x="60" y="1045" class="text-package" font-size="14">Legenda:</text>
+  
+  <path d="M 60 1060 L 100 1060" class="inheritance"/>
+  <polygon points="100,1060 95,1055 95,1065" class="arrow"/>
+  <text x="110" y="1065" class="text-attr" font-size="10">Herança (extends)</text>
+  
+  <path d="M 250 1060 L 290 1060" class="composition"/>
+  <polygon points="290,1060 285,1050 295,1050" class="arrow"/>
+  <text x="300" y="1065" class="text-attr" font-size="10">Composição (usa)</text>
+  
+  <path d="M 450 1060 L 490 1060" class="dependency"/>
+  <polygon points="490,1060 485,1055 485,1065" class="arrow"/>
+  <text x="500" y="1065" class="text-attr" font-size="10">Dependência (depende de)</text>
+  
+  <text x="60" y="1090" class="text-attr" font-size="10">Classes internas (internal) estão marcadas como tal no código.</text>
+  <text x="60" y="1105" class="text-attr" font-size="10">Object Calculo é um singleton (uma única instância).</text>
+  <text x="60" y="1120" class="text-attr" font-size="10">Celula é uma data class (gera equals, hashCode, toString automaticamente).</text>
+  <text x="60" y="1135" class="text-attr" font-size="10">SoundManager usa Context e MediaPlayer do Android (não mostrados no diagrama).</text>
+  
+</svg>
+
+
+
