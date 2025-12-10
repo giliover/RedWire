@@ -6,7 +6,7 @@ The main goal is to create an application with object-oriented programming for a
 
 To build and run this project, you will need the following software installed and properly configured:
 
-* **Java Development Kit (JDK) 24 **:
+* **Java Development Kit (JDK) 24**:
     * Check your JDK version with `java -version` in your terminal.
 * **Android SDK (Standalone)**: 
     * Although Android Studio is the easiest way to get the SDK, you can download it separately. This includes tools like `build-tools`, `platform-tools` (with `adb`), and Android platforms.
