@@ -1,70 +1,69 @@
 # Red Wire 
-O Red wire é um projeto de Campo Minado android ( Kotlin ).
-O principal objetivo é criar uma aplicação com programação orientada à objeto para uma disciplina de paradigma de programação orientado à objeto.
+Red wire is a Minesweeper project for Android (Kotlin).
+The main goal is to create an application with object-oriented programming for an object-oriented programming paradigm course.
 
-## Requisitos
+## Requirements
 
-Para compilar e executar este projeto, você precisará dos seguintes softwares instalados e configurados corretamente:
+To build and run this project, you will need the following software installed and properly configured:
 
-* **Java Development Kit (JDK) 24**:
-    * Verifique sua versão do JDK com `java -version` no terminal.
-* **Android SDK (Standalone)**:
-    * Embora o Android Studio seja a forma mais fácil de obter o SDK, você pode baixá-lo separadamente. Isso inclui ferramentas como `build-tools`, `platform-tools` (com `adb`), e plataformas Android.
-    * Você pode instalar via linha de comando usando `sdkmanager` (parte das Command Line Tools do Android SDK).
-    * **Configuração da variável de ambiente `ANDROID_HOME`**: Defina esta variável para apontar para o diretório raiz do seu SDK do Android. Por exemplo:
+* **Java Development Kit (JDK) 24 **:
+    * Check your JDK version with `java -version` in your terminal.
+* **Android SDK (Standalone)**: 
+    * Although Android Studio is the easiest way to get the SDK, you can download it separately. This includes tools like `build-tools`, `platform-tools` (with `adb`), and Android platforms.
+    * You can install it using the command line tool `sdkmanager` (part of the Android SDK Command Line Tools).
+    * **Setting the `ANDROID_HOME` environment variable**: Set this variable to point to the root directory of your Android SDK. For example:
         * `export ANDROID_HOME=$HOME/Android/Sdk` (Linux/macOS)
-        * `set ANDROID_HOME=C:\Users\SeuUsuario\AppData\Local\Android\Sdk` (Windows, ajuste o caminho)
-    * **Adicionar `platform-tools` ao PATH**: Adicione o diretório `platform-tools` do seu SDK ao seu PATH para poder usar `adb` diretamente. Por exemplo:
+        * `set ANDROID_HOME=C:\Users\YourUser\AppData\Local\Android\Sdk` (Windows, adjust the path)
+    * **Add `platform-tools` to the PATH**: Add the `platform-tools` directory from your SDK to your PATH to use `adb` directly. For example:
         * `export PATH=$PATH:$ANDROID_HOME/platform-tools` (Linux/macOS)
 * **Gradle**:
-    * O sistema de build utilizado pelo Android. O projeto já deve incluir o wrapper Gradle (`gradlew`), então uma instalação global não é estritamente necessária, mas é útil para outros projetos.
-* **Um dispositivo Android ou Emulador**:
-    * Para instalar e testar o aplicativo.
+    * The build system used by Android. The project should already include the Gradle wrapper (`gradlew`), so a global installation is not strictly required, but may be useful for other projects.
+* **An Android device or Emulator**:
+    * To install and test the application.
 
-## Como compilar e instalar (Apenas Linha de Comando)
+## How to build and install (Command Line Only)
 
-Siga estes passos para compilar o projeto e instalar o aplicativo em um dispositivo ou emulador, utilizando apenas a linha de comando.
+Follow these steps to build the project and install the application on a device or emulator using only the command line.
 
-1.  **Navegue até a pasta raiz do projeto**:
-    Abra seu terminal ou prompt de comando e navegue até o diretório onde este README e o arquivo `build.gradle` principal do projeto estão localizados.
+1.  **Navigate to the project root folder**:
+    Open your terminal or command prompt and go to the directory where this README and the main `build.gradle` file are located.
 
     ```bash
-    cd /caminho/para/seu/projeto/android
+    cd /path/to/your/android/project
     ```
 
-2.  **Compile o projeto e gere o APK de depuração**:
-    Execute o wrapper Gradle para construir o projeto. Isso irá compilar o código Kotlin, empacotar os recursos e gerar um arquivo APK.
+2.  **Build the project and generate the debug APK**:
+    Run the Gradle wrapper to build the project. This will compile the Kotlin code, package the resources, and generate an APK file.
 
     ```bash
-    # Para Linux/macOS
+    # For Linux/macOS
     ./gradlew assembleDebug
 
-    # Para Windows
+    # For Windows
     gradlew.bat assembleDebug
     ```
-    * Este comando irá compilar o aplicativo e gerar um arquivo APK de depuração. O APK gerado geralmente estará localizado em `app/build/outputs/apk/debug/app-debug.apk`.
+    * This command will compile the app and generate a debug APK file. The generated APK is usually located at `app/build/outputs/apk/debug/app-debug.apk`.
 
-3.  **Prepare seu dispositivo/emulador**:
-    * **Dispositivo Físico**:
-        * Conecte seu dispositivo Android ao computador via cabo USB.
-        * Certifique-se de que o "Modo Desenvolvedor" e a "Depuração USB" estejam ativados nas configurações do seu dispositivo.
-        * Verifique se o ADB reconhece seu dispositivo: `adb devices`. Você deverá ver seu dispositivo listado.
-    * **Emulador**:
-        * Você precisará ter um emulador configurado e iniciado. Você pode usar o AVD Manager (se o instalou via Command Line Tools) ou outro emulador.
+3.  **Prepare your device/emulator**:
+    * **Physical Device**:
+        * Connect your Android device to the computer via USB cable.
+        * Make sure "Developer Mode" and "USB Debugging" are enabled in your device settings.
+        * Check if ADB recognizes your device: `adb devices`. You should see your device listed.
+    * **Emulator**:
+        * You need to have an emulator configured and running. You can use the AVD Manager (if installed via Command Line Tools) or another emulator.
 
-4.  **Instale o APK no seu dispositivo/emulador**:
-    Use o Android Debug Bridge (ADB) para instalar o APK gerado no dispositivo ou emulador conectado.
+4.  **Install the APK on your device/emulator**:
+    Use Android Debug Bridge (ADB) to install the generated APK on your connected device or emulator.
 
     ```bash
     adb install app/build/outputs/apk/debug/app-debug.apk
     ```
-    * Se o comando `adb` não for reconhecido, certifique-se de que o diretório `platform-tools` do seu SDK Android está incluído na sua variável de ambiente `PATH` (conforme mencionado na seção de Requisitos).
+    * If the `adb` command is not recognized, make sure the `platform-tools` directory from your Android SDK is included in your `PATH` environment variable (as mentioned in the Requirements section).
 
-5.  **Inicie o aplicativo**:
-    Após a instalação bem-sucedida, o aplicativo estará disponível na lista de aplicativos do seu dispositivo ou emulador. Você pode iniciá-lo manualmente na interface do usuário ou via ADB.
+5.  **Start the application**:
+    After successful installation, the app will be available in your device or emulator's app list. You can launch it manually through the UI or via ADB.
 
     ```bash
-    # Exemplo: Iniciar a atividade principal 
+    # Example: Start main activity
     # adb shell am start -n com.example.campominado/MainActivity
     ```
-
