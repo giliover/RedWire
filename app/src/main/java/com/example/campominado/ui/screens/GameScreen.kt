@@ -32,7 +32,8 @@ internal class GameScreen {
             else -> Triple(10, 10, 10)
         }
 
-        val campo = remember { mutableStateOf(Calculo.gerarTabuleiro(linhas, colunas, totalBombas)) }
+        val campoInicial = remember { mutableStateOf(Calculo.gerarTabuleiro(linhas, colunas, totalBombas)) }
+        val campo = remember { mutableStateOf<List<MutableList<Celula>>?>(null) }
         val jogoIniciado = remember { mutableStateOf(false) }
         val gameOver = remember { mutableStateOf(false) }
         val vitoria = remember { mutableStateOf(false) }
@@ -72,8 +73,12 @@ internal class GameScreen {
         val fontSizeValue = (cellSize.value * 0.4).coerceIn(10.0, 20.0)
         val fontSize = fontSizeValue.sp
 
+        // O campo de exibição será o campo final (após primeiro clique), ou o inicial fechado
+        val tabuleiroParaExibir = campo.value ?: campoInicial.value
+
         val reiniciarJogo: () -> Unit = {
-            campo.value = Calculo.gerarTabuleiro(linhas, colunas, totalBombas)
+            campoInicial.value = Calculo.gerarTabuleiro(linhas, colunas, totalBombas)
+            campo.value = null
             jogoIniciado.value = false
             gameOver.value = false
             vitoria.value = false
@@ -97,20 +102,17 @@ internal class GameScreen {
                     excluirCelula = celula
                 )
                 jogoIniciado.value = true
-
-                val celulaGerada = campo.value[celula.linha][celula.coluna]
-                Calculo.revelarCelula(celulaGerada, campo.value)
-
-                if (Calculo.verificarVitoria(campo.value)) {
+                val celulaGerada = campo.value!![celula.linha][celula.coluna]
+                Calculo.revelarCelula(celulaGerada, campo.value!!)
+                if (Calculo.verificarVitoria(campo.value!!)) {
                     vitoria.value = true
                     showVictoryDialog.value = true
                     soundManager.stopBackgroundMusic()
                 }
             } else {
                 if (!celula.temMina.value) {
-                    Calculo.revelarCelula(celula, campo.value)
-
-                    if (Calculo.verificarVitoria(campo.value)) {
+                    Calculo.revelarCelula(celula, campo.value!!)
+                    if (Calculo.verificarVitoria(campo.value!!)) {
                         vitoria.value = true
                         showVictoryDialog.value = true
                         soundManager.stopBackgroundMusic()
@@ -121,7 +123,7 @@ internal class GameScreen {
                     } catch (e: Exception) {
                         println("Som de bomba não encontrado: ${e.message}")
                     }
-                    Calculo.revelarTudo(campo.value)
+                    Calculo.revelarTudo(campo.value!!)
                     gameOver.value = true
                     soundManager.stopBackgroundMusic()
                 }
@@ -141,7 +143,7 @@ internal class GameScreen {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CampoGrid(
-                campo = campo.value,
+                campo = tabuleiroParaExibir,
                 cellSize = cellSize,
                 fontSize = fontSize,
                 onCellClick = onCellClick,
